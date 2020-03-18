@@ -1,0 +1,16 @@
+.step_container_images {
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 45px;
+    padding-left: 2.3%;
+}
+.steps_image {
+    align-self: center;
+    width: 100%;
+    border-radius: 55px;
+    box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
+}
+.MoonsStepsCarousel_StepContainer__jDZ_u {
+    align-self: center;
+}

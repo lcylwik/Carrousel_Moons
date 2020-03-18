@@ -5,7 +5,7 @@ import data from './data/information'
 function App() {
   return (
     <div className="App">
-      <Elements data={data}></Elements> 
+      <Elements info={data}></Elements> 
     </div>
   );
 }
