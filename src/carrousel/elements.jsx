@@ -10,11 +10,13 @@ import Mobile from './mobile';
 const Elements = ({ info }) => {
 
   const information = info.data;
+  const textHeader = information[1].header;
+  const createMarkup = () => { return {__html: textHeader}; };
 
   return (
     <div className="carousel_Container">
       <div className="carousel_header">
-        <p className="header_title">{information[1].header}</p>
+        <p className="header_title" dangerouslySetInnerHTML={createMarkup()}></p>
       </div>
       <Mobile info={information} />
       <div className="carousel_tablet">Tablet</div>

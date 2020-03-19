@@ -3,7 +3,7 @@
     justify-content: center;
     display: flex;
     border-radius: 45px;
-    padding-left: 2.3%;
+    padding-left: 2%;
 }
 .steps_image {
     align-self: center;
@@ -33,4 +33,22 @@
     font-size: 16px;
     text-align: center;
     color: #2a2a2a;
+}
+
+.step_carrousel_back {
+    margin-top: 30px;
+    align-self: center;
+}
+
+.span_links {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -.5px;
+    color: #0752f8;
+    cursor: pointer;
+    font-family: ModernEra;
+}
+
+.arrow_rigth {
+    margin-left: 10px;
 }

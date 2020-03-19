@@ -24,7 +24,6 @@
 }
 
 .carousel_movil {
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -78,24 +77,24 @@
 
 .slider_move_0 {
     display: flex;
-    width: 260%;
+    width: 280%;
     transform: translateX(0%);
 }
 
 .slider_move_1 {
     display: flex;
-    width: 260%;
+    width: 280%;
     /* transform: translateX(-323px);  */
 }
 
 .slider_move_2 {
     display: flex;
-    width: 260%;
+    width: 280%;
     /* transform: translateX(-625px);  */
 }
 
 .scroll-touch {
-    overflow-x: scroll;
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* Lets it scroll lazy */
   }
 
@@ -103,7 +102,7 @@
     transform: translateX(0%);
 }
 
-@media (min-width: 767px) {
+@media (min-width: 461px) {
     .carousel_movil {
         display: none;
     }
