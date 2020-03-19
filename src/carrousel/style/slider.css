@@ -14,3 +14,23 @@
 .MoonsStepsCarousel_StepContainer__jDZ_u {
     align-self: center;
 }
+
+.container_text {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.carrousel_title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
+    color: #252525;
+}
+
+.carrousel_description {
+    line-height: 20px;
+    font-size: 16px;
+    text-align: center;
+    color: #2a2a2a;
+}
