@@ -15,11 +15,11 @@
 .container_text {
     margin-right: 10px;
     margin-left: 10px;
-    height: 130px;
+    /* height: 130px; */
 }
 
 .carousel_tablet .container_text {
-    height: 190px; 
+    height: 293px; 
 }
 
 .carousel_tablet .step_carrousel_back {
@@ -42,7 +42,6 @@
 }
 
 .step_carrousel_back {
-    margin-top: 30px;
     align-self: center;
 }
 
@@ -66,11 +65,11 @@
     justify-content: space-between;
     flex-direction: column;
     width: 350px;
-    height: 500px;
+    height: 550px;
 }
 
 .step_container_images_table{
-    width: 130%;
+    width: 110%;
     transform: translateX(0%);
     display: flex;
 }

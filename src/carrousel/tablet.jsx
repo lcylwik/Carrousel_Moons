@@ -100,7 +100,7 @@ const Table = (props) => {
                         return (<button key={item.id} className={classBotton} onClick={(e) => moveSlides(item.id)}>
                         </button>)
                     })}
-                </div>
+            </div>
         </div>
     );
 }

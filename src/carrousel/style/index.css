@@ -73,8 +73,7 @@
     margin-top: 10px;
     z-index: 1;
     height: 20px;
-    width: 70px;
-    float: right;
+    text-align: center;
 }
 
 .slider_move_0 {
@@ -93,13 +92,19 @@
     display: none;
 }
 
-@media (min-width: 461px) {
+@media (min-width: 652px) {
     .carousel_movil {
         display: none;
     }
     .carousel_tablet {
         display: initial;
     }
+}
+
+@media (min-width: 652px) {
+    /* .carousel_tablet {
+        display: none;
+    } */
 }
 
 @media (min-width: 1040px) {
@@ -124,6 +129,7 @@
     align-self: center;
     border-radius: 45px;
     float: left;
+    display: inline-flex;
 }
 
 .carousel_image{
