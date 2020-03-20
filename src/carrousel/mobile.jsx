@@ -15,13 +15,25 @@ const Mobile = (props) => {
 
     let refSlider = useRef(null);
     let refSliderContainer = useRef(null);
+    let refImage = useRef(null);
 
     useEffect(() => {
 
     }, []);
 
 
+    const reCalculteStep = () => {
+        if(refImage.current.width === 458) {
+            step_2 = 525
+            step_3 = 1019
+        } else {
+            step_2 = 300
+            step_3 = 631
+        }
+    }
+
     const moveSlides = (n) => {
+        reCalculteStep();
         let positionNext = [];
         let indexNext = n, indexCurrent, curentleft, dif;
         positionBootons.map((it, index) => {
@@ -45,6 +57,7 @@ const Mobile = (props) => {
 
     const calculatePosition = (curentPosition) => {
         let finalPosition, positionBotons = [];
+        reCalculteStep();
 
         if (step_2 > curentPosition) {
             let sideR = (step_2 - curentPosition) < (curentPosition - step_1);
@@ -87,7 +100,7 @@ const Mobile = (props) => {
                             return (
                                 <div key={item.id} className="step_container_images">
                                     <div className="moons_image_carrusel">
-                                        <img alt="step-one" className="steps_image"
+                                        <img ref={refImage} alt="step-one" className="steps_image"
                                             src={image} />
                                     </div>
                                 </div>
