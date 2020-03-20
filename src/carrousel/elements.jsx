@@ -3,10 +3,11 @@ import './style/index.css'
 import Desktop from './desktop';
 import Mobile from './mobile';
 import Table from './tablet';
+import { data } from './data/information'
 
-const Elements = ({ info }) => {
+const Elements = () => {
 
-  const information = info.data;
+  const information = data;
   const textHeader = information[1].header;
   const createMarkup = () => { return { __html: textHeader }; };
 
