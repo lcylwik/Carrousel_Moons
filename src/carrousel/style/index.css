@@ -94,6 +94,18 @@
 
 .steps_image {
     width: 100%;
+    display: flex;
+    border-radius: 55px;
+}
+
+.img_0 {
+    content:url("../assets/1/rectangle.jpg");
+}
+.img_1 {
+    content:url("../assets/2/rectangle.jpg");
+}
+.img_2 {
+    content:url("../assets/3/rectangle.jpg");
 }
 
 @media (min-width: 700px) {
@@ -108,10 +120,21 @@
 @media (min-width: 633px) and (max-width: 700px) {
     .steps_image  {
         height: 97%;
-        width: 150%;
+        width: 100%;
+        border-radius: 68px;
+        display: flex;
     }
     .step_container_images{
-        width: 28%;
+        width: 30%;
+    }
+    .img_0 {
+        content:url("../assets/1/rectangle@2x.jpg");
+    }
+    .img_1 {
+        content:url("../assets/2/rectangle@2x.jpg");
+    }
+    .img_2 {
+        content:url("../assets/3/rectangle@2x.jpg");
     }
 }
 

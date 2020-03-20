@@ -10,7 +10,7 @@ const Mobile = (props) => {
     let scrollTimeout;
     let initialBooton = [true, false, false];
     let step_1 = 0, step_2 = 300, step_3 = 631;
-    const [currentPosition, setCurrentPosition] = useState(0);
+    const [touchBoton, setTouchBoton] = useState(false);
     const [positionBootons, setPositionBootons] = useState(initialBooton);
 
     let refSlider = useRef(null);
@@ -23,13 +23,24 @@ const Mobile = (props) => {
 
 
     const reCalculteStep = () => {
-        if(refImage.current.width === 458) {
-            step_2 = 525
-            step_3 = 1019
-        } else {
+
+        if(refImage.current.width < 481) {
             step_2 = 300
             step_3 = 631
+        } else if(refImage.current.width <= 509) {
+            step_2 = 481
+            step_3 = 1019
+        }else if(refImage.current.width <= 532) {
+            step_2 = 492
+            step_3 = 1019
+        }else  {
+            step_2 = 520
+            step_3 = 1019
         }
+        console.log("width", refImage.current.width)
+        console.log("step_2", step_2)
+        console.log("step_3", step_3)
+
     }
 
     const moveSlides = (n) => {
@@ -52,7 +63,7 @@ const Mobile = (props) => {
         curentleft = refSliderContainer.current.scrollLeft;
         refSliderContainer.current.scrollLeft = curentleft + dif
         setPositionBootons(positionNext);
-        setCurrentPosition(curentleft + dif);
+        setTouchBoton(true);
     }
 
     const calculatePosition = (curentPosition) => {
@@ -69,7 +80,6 @@ const Mobile = (props) => {
             positionBotons = sideL ? [false, false, true] : [false, true, false];
         }
         refSliderContainer.current.scrollLeft = finalPosition;
-        setCurrentPosition(finalPosition);
         setPositionBootons(positionBotons);
     }
 
@@ -78,8 +88,10 @@ const Mobile = (props) => {
         e.preventDefault();
         scrollEnd(() => {
             let currentLeft = refSliderContainer.current.scrollLeft;
-            console.log('stopped scrolling: ' + currentLeft);
-            calculatePosition(currentLeft)
+            console.log('stopped scrolling: ' + currentLeft, touchBoton);
+            if(!touchBoton) {
+              calculatePosition(currentLeft);
+            } else setTouchBoton(false);
         }, 200)
     }
 
@@ -100,8 +112,7 @@ const Mobile = (props) => {
                             return (
                                 <div key={item.id} className="step_container_images">
                                     <div className="moons_image_carrusel">
-                                        <img ref={refImage} alt="step-one" className="steps_image"
-                                            src={image} />
+                                        <img ref={refImage} alt="step-one" className={`steps_image img_${item.id }`} />
                                     </div>
                                 </div>
                             )
