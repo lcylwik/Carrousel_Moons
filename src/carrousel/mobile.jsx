@@ -9,7 +9,7 @@ const Mobile = (props) => {
     let { info } = props
     let scrollTimeout;
     let initialBooton = [true, false, false];
-    let step_1 = 0, step_2 = 318, step_3 = 631;
+    let step_1 = 0, step_2 = 300, step_3 = 631;
     const [currentPosition, setCurrentPosition] = useState(0);
     const [positionBootons, setPositionBootons] = useState(initialBooton);
 

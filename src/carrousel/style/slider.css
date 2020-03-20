@@ -11,13 +11,19 @@
     border-radius: 55px;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
 }
-.MoonsStepsCarousel_StepContainer__jDZ_u {
-    align-self: center;
-}
 
 .container_text {
     margin-right: 10px;
     margin-left: 10px;
+    height: 130px;
+}
+
+.carousel_tablet .container_text {
+    height: 190px; 
+}
+
+.carousel_tablet .step_carrousel_back {
+    margin-top: 0px;
 }
 
 .carrousel_title {
@@ -51,4 +57,37 @@
 
 .arrow_rigth {
     margin-left: 10px;
+}
+
+.moons_image_two_table, .moons_image_three_table {
+    align-self: center;
+    border-radius: 45px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 350px;
+    height: 500px;
+}
+
+.step_container_images_table{
+    width: 130%;
+    transform: translateX(0%);
+    display: flex;
+}
+
+.slideshow_container_table {
+    position: relative;
+}
+
+.slider_move_tablet {
+    width: 130%;
+    transform: translateX(0%);
+    display: flex;
+}
+
+.one_image_table, .two_image_table, .three_image_table {
+    align-self: center;
+    width: 305px;
+    border-radius: 55px;
+    box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
 }

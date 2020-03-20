@@ -1,5 +1,7 @@
 import React from 'react';
-import './style/index.css'
+import './style/index.css';
+import Description from './description';
+import LinkCita from './linkCita';
 
 const Desktop = ({info}) => {
 
@@ -9,10 +11,8 @@ const image = require(`${info.image}`);
     return (
         <div key={id} className="photo_desktop" >
             <img src={image} alt={id} className="carousel_image" />
-            <div className="text_container">
-                <p className="text_title">{info.title}</p>
-                <p className="text_description">{info.description}</p>
-            </div>
+            <Description key={info.id} item={info}></Description>
+            {id === 0 && <LinkCita></LinkCita>}
         </div >
     );
 }
