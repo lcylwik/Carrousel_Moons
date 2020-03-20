@@ -92,6 +92,10 @@
     display: none;
 }
 
+.steps_image {
+    width: 100%;
+}
+
 @media (min-width: 700px) {
     .carousel_movil {
         display: none;
