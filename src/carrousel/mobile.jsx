@@ -1,142 +1,218 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { createRef } from 'react';
 import './style/slider.css'
 import './style/index.css'
 import Description from './description';
 import LinkCita from './linkCita';
 
-const Mobile = (props) => {
+class Mobile extends React.Component {
 
-    let { info } = props
-    let scrollTimeout;
-    let initialBooton = [true, false, false];
-    let step_1 = 0, step_2 = 300, step_3 = 631;
-    const [touchBoton, setTouchBoton] = useState(false);
-    const [positionBootons, setPositionBootons] = useState(initialBooton);
+    constructor(props) {
+        super(props);
 
-    let refSlider = useRef(null);
-    let refSliderContainer = useRef(null);
-    let refImage = useRef(null);
-
-    useEffect(() => {
-
-    }, []);
-
-
-    const reCalculteStep = () => {
-
-        if(refImage.current.width < 481) {
-            step_2 = 300
-            step_3 = 631
-        } else if(refImage.current.width <= 509) {
-            step_2 = 481
-            step_3 = 1019
-        }else if(refImage.current.width <= 532) {
-            step_2 = 492
-            step_3 = 1019
-        }else  {
-            step_2 = 520
-            step_3 = 1019
+        this.info = this.props.info
+        this.refSlider = createRef();
+        this.refSliderContainer = createRef();
+        this.refImage = createRef();
+        this.refAllSlide = [];
+        for (let i = 0; i < this.info.length; i++) {
+            this.refAllSlide[i] = React.createRef();
         }
-        console.log("width", refImage.current.width)
-        console.log("step_2", step_2)
-        console.log("step_3", step_3)
 
+        this.refDots = createRef();
+
+        this.curLeft = 0
+        this.moveX = 0
+        this.startX = 0
+        this.curSlide = 0
+        this.loadedCnt = 0;
+        this.slideW = 0;
+        this.totalSlides = this.info.length;
+
+        this.def = {
+            transition: {
+                speed: 300,
+                easing: ''
+            },
+            swipe: true,
+            autoHeight: false,
+            afterChangeSlide: () => { }
+        }
+        this.state = {
+            footerPosition: 0
+        }
     }
 
-    const moveSlides = (n) => {
-        reCalculteStep();
-        let positionNext = [];
-        let indexNext = n, indexCurrent, curentleft, dif;
-        positionBootons.map((it, index) => {
-            if (it === true) indexCurrent = index;
-            if (index === n) {
-                positionNext[index] = true;
-            } else positionNext[index] = false;
-        })
-        if (indexNext > indexCurrent) {
-            dif = indexNext - indexCurrent === 1 ? step_2 : step_3;
-        } else if (indexNext < indexCurrent) {
-            dif = indexCurrent - indexNext === 1 ? -step_2 : -step_3;
+    componentWillMount() {
+        window.addEventListener('resize', this.updateSliderDimension);
+    }
+
+    componentWillUnmount() {
+        window.addEventListener('resize', this.updateSliderDimension);
+    }
+
+    componentDidMount() {
+        this.init();
+        this.updateSliderDimension();
+    }
+
+    gotoSlide = (n) => {
+        debugger
+        this.curSlide = n;
+        this.refSliderContainer.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
+        this.refSliderContainer.current.style.left = `${-this.curSlide * this.slideW}px`
+
+        setTimeout(() => {
+            this.refSliderContainer.current.style.transition = ''
+        }, this.def.transition.speed);
+
+        this.setState({
+            footerPosition: n
+        });
+        this.setDot();
+    }
+
+    setDot = () => {
+        for (const el of this.refDots.current.children) {
+            el.classList.remove("slider_active")
+        }
+        this.refDots.current.children[this.curSlide].classList.add("slider_active")
+    }
+
+    startMove = (e) => {
+        this.getCurrentLeft();
+        const touch = e.targetTouches[0] || e.changedTouches[0];
+        this.startX = touch.pageX;
+    }
+
+    swipeMove = (e) => {
+        console.log("swipeMove")
+        const touch = e.targetTouches[0] || e.changedTouches[0];
+        this.moveX = touch.pageX;
+
+        // for scrolling up and down
+        if (Math.abs(this.moveX - this.startX) < 40) return;
+
+        this.refSliderContainer.current.style.left = `${this.curLeft + this.moveX - this.startX}px`
+    }
+
+    swipeEnd = (e) => {
+        debugger
+        console.log("swipeEnd", e)
+        this.getCurrentLeft();
+
+        if (Math.abs(this.moveX - this.startX) === 0) return;
+
+        const stayAtCur = Math.abs(this.moveX - this.startX) < 40 || typeof this.moveX === 0 ? true : false;
+        const dir = this.startX < this.moveX ? 'left' : 'right';
+
+        if (!this.stayAtCur) {
+            dir === 'left' ? this.curSlide-- : this.curSlide++;
+            if (this.curSlide < 0) {
+                this.curSlide = this.totalSlides - 1;
+            } else if (this.curSlide === this.totalSlides) {
+                this.curSlide = 1;
+            }
+        }
+
+        this.gotoSlide();
+        this.restValues();
+    }
+
+    restValues = () => {
+        this.startX = 0;
+        this.moveX = 0;
+    }
+
+    getCurrentLeft = () => {
+        const left = this.refSliderContainer.current.style.left
+        if (left) this.curLeft = parseInt(left, 10);
+    }
+
+    updateSliderDimension = (e) => {
+        debugger
+        this.slideW = this.getSlideW();
+        this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
+    }
+
+    getSlideW = () => {
+        const allSlider = this.refAllSlide;
+        if (allSlider.length > 0)
+            this.slideW = parseInt(allSlider[0].current.offsetWidth);
+        else this.slideW = 0
+        return this.slideW;
+    }
+
+    init = () => {
+        let allSlide = this.refAllSlide;
+
+        for (let item of allSlide) {
+            this.loadedImg(item.current)
+        }
+        this.setDot();
+        this.getSlideW();
+    }
+
+    loadedImg = ((el) => {
+        let loaded = false;
+        const loadHandler = () => {
+            if (loaded) return;
+            loaded = true;
+            this.loadedCnt++;
+            if (this.loadedCnt >= this.totalSlides) {
+                this.updateSliderDimension();
+            }
+        }
+
+        let img = el.firstElementChild;
+        if (img) {
+            img.onload = loadHandler;
+            img.src = require(`${img.dataset.src}`);
+            img.style.width = "100%";
+            img.style.display = 'block';
+            if (img.complete) {
+                loadHandler()
+            }
         } else {
-            dif = 0;
+            this.updateSliderDimension();
         }
-        curentleft = refSliderContainer.current.scrollLeft;
-        refSliderContainer.current.scrollLeft = curentleft + dif
-        setPositionBootons(positionNext);
-        setTouchBoton(true);
-    }
+    })
 
-    const calculatePosition = (curentPosition) => {
-        let finalPosition, positionBotons = [];
-        reCalculteStep();
-
-        if (step_2 > curentPosition) {
-            let sideR = (step_2 - curentPosition) < (curentPosition - step_1);
-            finalPosition = sideR ? step_2 : step_1;
-            positionBotons = sideR ? [false, true, false] : [true, false, false];
-        } else {
-            let sideL = (step_3 - curentPosition) < (curentPosition - step_2);
-            finalPosition = sideL ? step_3 : step_2;
-            positionBotons = sideL ? [false, false, true] : [false, true, false];
-        }
-        refSliderContainer.current.scrollLeft = finalPosition;
-        setPositionBootons(positionBotons);
-    }
-
-    const scroll = (e) => {
-        console.log("scroll", refSliderContainer.current.scrollLeft, e.currentTarget.scrollLeft);
-        e.preventDefault();
-        scrollEnd(() => {
-            let currentLeft = refSliderContainer.current.scrollLeft;
-            console.log('stopped scrolling: ' + currentLeft, touchBoton);
-            if(!touchBoton) {
-              calculatePosition(currentLeft);
-            } else setTouchBoton(false);
-        }, 200)
-    }
-
-    const scrollEnd = (callback, time) => {
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
-        scrollTimeout = setTimeout(callback, time);
-    }
-
-    return (
-        <div className="carousel_movil">
-            <div ref={refSliderContainer} onScroll={(e) => scroll(e)} className="slideshow_container scroll-touch">
-                <div>
-                    <div ref={refSlider} className="slider_move_0 scroll-touch" >
-                        {info.map(item => {
-                            const image = require(`${item.image}`);
-                            return (
-                                <div key={item.id} className="step_container_images">
-                                    <div className="moons_image_carrusel">
-                                        <img ref={refImage} alt="step-one" className={`steps_image img_${item.id }`} />
+    render() {
+        return (
+            <div className="carousel_movil">
+                <div ref={this.refSliderContainer} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.swipeMove(e)} className="slideshow_container">
+                    <div>
+                        <div ref={this.refSlider} className="slider_move_0" >
+                            {this.info.map((item, index) => {
+                                return (
+                                    <div key={item.id} className="step_container_images">
+                                        <div ref={this.refAllSlide[index]} className="moons_image_carrusel">
+                                            <img ref={this.refImage} alt="step-one" data-src={item.image_2} className="steps-image" />
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })}
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="slider_boot_out">
-                {info.map(item => {
-                    let id = item.id;
-                    let classBotton = positionBootons[id] ? "slider_active" : "slider_no_active";
-                    return (<button key={item.id} className={classBotton} onClick={(e) => moveSlides(item.id)}>
-                    </button>)
+                <div ref={this.refDots} className="slider_boot_out">
+                    {this.info.map((item, index) => {
+                        let id = item.id;
+                        return (<button key={item.id} className="slider_botton" onClick={(e) => { this.gotoSlide(index) }}>
+                        </button>)
+                    })}
+                </div>
+
+                {this.info.map((item, index) => {
+                    console.log(this.curSlide)
+                    if (this.state.footerPosition === index) {
+                        return (<Description key={item.id} item={item}></Description>)
+                    }
                 })}
+                <LinkCita></LinkCita>
             </div>
+        );
+    }
 
-            {info.map((item, index) => {
-                if (positionBootons[index]) {
-                    return (<Description key={item.id} item={item}></Description>)
-                }
-            })}
-            <LinkCita></LinkCita>
-        </div>
-    );
 }
-
 export default Mobile;
