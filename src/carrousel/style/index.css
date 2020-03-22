@@ -86,6 +86,7 @@
     overflow-x: scroll;
     -ms-overflow-style: none;
     overflow-y: hidden;
+    transition: 2s;
 }
 
 .scroll-touch::-webkit-scrollbar {
