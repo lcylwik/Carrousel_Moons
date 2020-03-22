@@ -56,8 +56,9 @@ class Mobile extends React.Component {
     }
 
     gotoSlide = (n) => {
-        debugger
-        this.curSlide = n;
+        if(n !== undefined) {
+            this.curSlide = n;
+        }
         this.refSliderContainer.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
         this.refSliderContainer.current.style.left = `${-this.curSlide * this.slideW}px`
 
@@ -65,9 +66,6 @@ class Mobile extends React.Component {
             this.refSliderContainer.current.style.transition = ''
         }, this.def.transition.speed);
 
-        this.setState({
-            footerPosition: n
-        });
         this.setDot();
     }
 
@@ -76,6 +74,9 @@ class Mobile extends React.Component {
             el.classList.remove("slider_active")
         }
         this.refDots.current.children[this.curSlide].classList.add("slider_active")
+        this.setState({
+            footerPosition: this.curSlide
+        });
     }
 
     startMove = (e) => {
@@ -84,7 +85,7 @@ class Mobile extends React.Component {
         this.startX = touch.pageX;
     }
 
-    swipeMove = (e) => {
+    Moving = (e) => {
         console.log("swipeMove")
         const touch = e.targetTouches[0] || e.changedTouches[0];
         this.moveX = touch.pageX;
@@ -95,8 +96,7 @@ class Mobile extends React.Component {
         this.refSliderContainer.current.style.left = `${this.curLeft + this.moveX - this.startX}px`
     }
 
-    swipeEnd = (e) => {
-        debugger
+    endMove = (e) => {
         console.log("swipeEnd", e)
         this.getCurrentLeft();
 
@@ -129,7 +129,6 @@ class Mobile extends React.Component {
     }
 
     updateSliderDimension = (e) => {
-        debugger
         this.slideW = this.getSlideW();
         this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
     }
@@ -180,7 +179,7 @@ class Mobile extends React.Component {
     render() {
         return (
             <div className="carousel_movil">
-                <div ref={this.refSliderContainer} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.swipeMove(e)} className="slideshow_container">
+                <div ref={this.refSliderContainer} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className="slideshow_container">
                     <div>
                         <div ref={this.refSlider} className="slider_move_0" >
                             {this.info.map((item, index) => {
@@ -213,6 +212,5 @@ class Mobile extends React.Component {
             </div>
         );
     }
-
 }
 export default Mobile;
