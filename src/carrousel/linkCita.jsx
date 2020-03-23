@@ -1,6 +1,6 @@
 import React from 'react';
 import './style/slider.css'
-import arrow from './assets/arrow_1.svg'
+import arrow from './assets/arrow.svg'
 
 const LinkCita = () => {
 
