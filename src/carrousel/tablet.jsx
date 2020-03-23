@@ -148,8 +148,8 @@ class Tablet extends React.Component {
             dir === 'left' ? this.curSlide-=2 : this.curSlide+=2;
             if (this.curSlide < 0) {
                 this.curSlide = this.totalSlides - 1;
-            } else if (this.curSlide === this.totalSlides) {
-                this.curSlide = 1;
+            } else if (this.curSlide === this.totalSlides + 1) {
+                this.curSlide-=2;
             }
         }
         this.gotoSlide();

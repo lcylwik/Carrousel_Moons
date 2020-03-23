@@ -16,10 +16,6 @@
     /* height: 130px; */
 }
 
-.carousel_tablet .container_text {
-    height: 293px; 
-}
-
 .carousel_tablet .step_carrousel_back {
     margin-top: 0px;
 }
@@ -58,7 +54,7 @@
 
 .moons_image_two_table, .moons_image_three_table {
     align-self: center;
-    border-radius: 45px;
+    border-radius: 44px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -84,6 +80,6 @@
 .one_image_table, .two_image_table, .three_image_table {
     align-self: center;
     width: 305px;
-    border-radius: 55px;
+    border-radius: 63px;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
 }
