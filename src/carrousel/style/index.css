@@ -114,6 +114,7 @@
     }
     .carousel_tablet {
         display: initial;
+        overflow-x: hidden;
     }
 }
 

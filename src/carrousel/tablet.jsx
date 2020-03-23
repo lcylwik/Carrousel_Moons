@@ -1,108 +1,193 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { createRef } from 'react';
 import './style/slider.css'
 import './style/index.css'
 import Description from './description';
 import LinkCita from './linkCita';
+import { loadedImg } from './utils';
 
-const Table = (props) => {
+class Tablet extends React.Component {
 
-    let { info } = props
-    let scrollTimeout;
-    let initialBooton = [true, true, false];
-    let step_1 = 0, step_2 = 306;
-    const [currentPosition, setCurrentPosition] = useState(0);
-    const [positionBootons, setPositionBootons] = useState(initialBooton);
-    const image_0 = require(`${info[0].image}`);
-    const image_1 = require(`${info[1].image}`);
-    const image_2 = require(`${info[2].image}`);
+    constructor(props) {
+        super(props);
 
-    let refSlider = useRef(null);
-    let refSliderTable = useRef(null);
+        this.info = this.props.info
+        this.refSlider = createRef();
+        this.refSliderTable = createRef();
+        this.refImage = createRef();
+        this.refAllSlide = [];
+        this.refAllStep = [];
+        for (let i = 0; i < this.info.length; i++) {
+            this.refAllSlide[i] = React.createRef();
+        }
+        for (let i = 0; i < this.info.length; i++) {
+            this.refAllStep[i] = React.createRef();
+        }
 
-    useEffect(() => {
+        this.refDots = createRef();
 
-    }, []);
+        this.curLeft = 0
+        this.moveX = 0
+        this.startX = 0
+        this.curSlide = 0
+        this.loadedCnt = 0;
+        this.slideW = 0;
+        this.offsetLeft = 0;
+        this.totalSlides = this.info.length;
 
-
-    const moveSlides = (n) => {
-        let curentleft = refSliderTable.current.scrollLeft;
-
-        if (n === 0) {
-            setPositionBootons([true, true, false]);
-            if (curentleft !== 0)
-                refSliderTable.current.scrollLeft = curentleft - step_2
-        } else if (n === 2) {
-            setPositionBootons([false, true, true]);
-            if (curentleft !== step_2)
-                refSliderTable.current.scrollLeft = curentleft + step_2
+        this.def = {
+            transition: {
+                speed: 300,
+                easing: ''
+            },
+            swipe: true,
+            autoHeight: false,
+            afterChangeSlide: () => { }
+        }
+        this.state = {
+            footerPosition: 0
         }
     }
 
-    const calculatePosition = (curentPosition) => {
-        let finalPosition, positionBotons = [];
-
-        let side = (step_2 - curentPosition) < (curentPosition - step_1);
-        finalPosition = side ? step_2 : step_1;
-        positionBotons = side ? [false, true, true] :[true, true, false];
-
-        refSliderTable.current.scrollLeft = finalPosition;
-        setCurrentPosition(finalPosition);
-        setPositionBootons(positionBotons);
+    componentWillMount() {
+        window.addEventListener('resize', this.updateSliderDimension);
     }
 
-    const scroll = (e) => {
-        e.preventDefault();
-        scrollEnd(() => {
-            let currentLeft = refSliderTable.current.scrollLeft;
-            console.log('stopped scrolling: ' + currentLeft);
-            calculatePosition(currentLeft)
-        }, 50)
+    componentWillUnmount() {
+        window.addEventListener('resize', this.updateSliderDimension);
     }
 
-    const scrollEnd = (callback, time) => {
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
+    componentDidMount() {
+        this.init();
+        this.updateSliderDimension();
+    }
+
+    init = () => {
+        let allSlide = this.refAllSlide;
+
+        for (let item of allSlide) {
+            loadedImg(item.current, this.updateSliderDimension, this.totalSlides);
         }
-        scrollTimeout = setTimeout(callback, time);
+        this.setDot();
+        this.getSlideW();
     }
 
-    const touchMove = (e) => {
-        e.preventDefault();
+    setDot = () => {
+        for (const el of this.refDots.current.children) {
+            el.classList.remove("slider_active")
+        }
+        this.refDots.current.children[this.curSlide].classList.add("slider_active")
+        this.refDots.current.children[1].classList.add("slider_active")
+        this.setState({
+            footerPosition: this.curSlide
+        });
     }
 
-    return (
-        <div className="carousel_tablet">
-            <div ref={refSliderTable} onScroll={(e) => scroll(e)} onTouchMove={(e) => touchMove(e)} className="slideshow_container_table scroll-touch">
-                <div>
-                    <div ref={refSlider} className="slider_move_tablet" >
-                        <div className="step_container_images_table">
-                            <div className="moons_image_two_table">
-                                <img alt="step-one" className="one_image_table" src={image_0} />
-                                <Description key={info[0].id} item={info[0]}></Description>
-                                <LinkCita></LinkCita>
-                            </div>
-                            <div className="moons_image_two_table">
-                                <img alt="step-two" className="one_image_table" src={image_1} />
-                                <Description key={info[1].id} item={info[1]}></Description>
-                            </div>
-                            <div className="moons_image_three_table">
-                                <img alt="step-three" className="one_image_table" src={image_2} />
-                                <Description key={info[2].id} item={info[2]}></Description>
-                            </div>
+    updateSliderDimension = (e) => {
+        this.slideW = this.getSlideW();
+        this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
+    }
+
+    getSlideW = () => {
+        const allSlider = this.refAllSlide;
+        if (allSlider.length > 0) {
+            this.slideW = parseInt(allSlider[0].current.offsetWidth);
+            this.offsetLeft = parseInt(allSlider[0].current.offsetLeft);
+        }
+        else this.slideW = 0
+        return this.slideW;
+    }
+
+    getCurrentLeft = () => {
+        const left = this.refSliderTable.current.style.left
+        if (left) this.curLeft = parseInt(left, 10);
+    }
+
+    gotoSlide = (n) => {
+        if (n === 1) return;
+        if (n !== undefined) {
+            this.curSlide = n;
+        }
+        this.refSliderTable.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
+        if (this.curSlide === 0) {
+            this.refSliderTable.current.style.left = `${-(this.curSlide) * this.slideW}px`
+        } else {
+            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * this.slideW - 2 * this.offsetLeft}px`
+        }
+
+        setTimeout(() => {
+            this.refSliderTable.current.style.transition = ''
+        }, this.def.transition.speed);
+
+        this.setDot();
+    }
+
+    startMove = (e) => {
+        this.getCurrentLeft();
+        const touch = e.targetTouches[0] || e.changedTouches[0];
+        this.startX = touch.pageX;
+    }
+
+    Moving = (e) => {
+        const touch = e.targetTouches[0] || e.changedTouches[0];
+        this.moveX = touch.pageX;
+
+        if (Math.abs(this.moveX - this.startX) < 40) return;
+
+        this.refSliderTable.current.style.left = `${this.curLeft + this.moveX - this.startX}px`
+    }
+
+    endMove = (e) => {
+        this.getCurrentLeft();
+
+        if (Math.abs(this.moveX - this.startX) === 0 || (this.moveX === 0)) return;
+
+        const stayAtCur = Math.abs(this.moveX - this.startX) < 40 || this.moveX === 0 ? true : false;
+        const dir = this.startX < this.moveX ? 'left' : 'right';
+
+        if (!stayAtCur) {
+            dir === 'left' ? this.curSlide-=2 : this.curSlide+=2;
+            if (this.curSlide < 0) {
+                this.curSlide = this.totalSlides - 1;
+            } else if (this.curSlide === this.totalSlides) {
+                this.curSlide = 1;
+            }
+        }
+        this.gotoSlide();
+        this.restValues();
+    }
+
+    restValues = () => {
+        this.startX = 0;
+        this.moveX = 0;
+    }
+
+    render() {
+        return (
+            <div className="carousel_tablet">
+                <div ref={this.refSliderTable} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className="slideshow_container_table">
+                    <div>
+                        <div ref={this.refSlider} className="slider_move_tablet" >
+                            {this.info.map((item, index) => (
+                                <div key={index} ref={this.refAllStep[index]} className="step_container_images_table">
+                                    <div ref={this.refAllSlide[index]} className="moons_image_two_table">
+                                        <img alt="step-one" className="one_image_table" data-src={item.image_2} />
+                                        <Description key={index} item={item}></Description>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="slider_boot_out">
-                    {info.map(item => {
-                        let id = item.id;
-                        let classBotton = positionBootons[id] ? "slider_active" : "slider_no_active";
-                        return (<button key={item.id} className={classBotton} onClick={(e) => moveSlides(item.id)}>
+                <div ref={this.refDots} className="slider_boot_out">
+                    {this.info.map((item, index) => {
+                        return (<button key={index} className="slider_botton" onClick={(e) => { this.gotoSlide(index) }}>
                         </button>)
                     })}
+                </div>
+                <LinkCita></LinkCita>
             </div>
-        </div>
-    );
-}
+        );
+    }
 
-export default Table;
+}
+export default Tablet;

@@ -102,10 +102,10 @@ class Mobile extends React.Component {
 
         if (Math.abs(this.moveX - this.startX) === 0) return;
 
-        const stayAtCur = Math.abs(this.moveX - this.startX) < 40 || typeof this.moveX === 0 ? true : false;
+        const stayAtCur = Math.abs(this.moveX - this.startX) < 40 || this.moveX === 0 ? true : false;
         const dir = this.startX < this.moveX ? 'left' : 'right';
 
-        if (!this.stayAtCur) {
+        if (!stayAtCur) {
             dir === 'left' ? this.curSlide-- : this.curSlide++;
             if (this.curSlide < 0) {
                 this.curSlide = this.totalSlides - 1;
@@ -184,7 +184,7 @@ class Mobile extends React.Component {
                         <div ref={this.refSlider} className="slider_move_0" >
                             {this.info.map((item, index) => {
                                 return (
-                                    <div key={item.id} className="step_container_images">
+                                    <div key={index} className="step_container_images">
                                         <div ref={this.refAllSlide[index]} className="moons_image_carrusel">
                                             <img ref={this.refImage} alt="step-one" data-src={item.image_2} className="steps-image" />
                                         </div>
@@ -196,17 +196,14 @@ class Mobile extends React.Component {
                 </div>
                 <div ref={this.refDots} className="slider_boot_out">
                     {this.info.map((item, index) => {
-                        let id = item.id;
-                        return (<button key={item.id} className="slider_botton" onClick={(e) => { this.gotoSlide(index) }}>
+                        return (<button key={index} className="slider_botton" onClick={(e) => { this.gotoSlide(index) }}>
                         </button>)
                     })}
                 </div>
 
                 {this.info.map((item, index) => {
-                    console.log(this.curSlide)
-                    if (this.state.footerPosition === index) {
-                        return (<Description key={item.id} item={item}></Description>)
-                    }
+                    if (this.state.footerPosition === index) 
+                    return (<Description key={item.id} item={item}></Description>)
                 })}
                 <LinkCita></LinkCita>
             </div>

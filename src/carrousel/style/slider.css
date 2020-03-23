@@ -62,14 +62,13 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    width: 350px;
-    height: 550px;
 }
 
 .step_container_images_table{
-    width: 109%;
+    width: 100%;
     transform: translateX(0%);
     display: flex;
+    padding: 0 2% 0 2%;
 }
 
 .slideshow_container_table {
@@ -77,7 +76,7 @@
 }
 
 .slider_move_tablet {
-    width: 130%;
+    width: 150%;
     transform: translateX(0%);
     display: flex;
 }
