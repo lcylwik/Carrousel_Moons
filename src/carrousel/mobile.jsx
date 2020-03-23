@@ -3,23 +3,13 @@ import './style/slider.css'
 import './style/index.css'
 import Description from './description';
 import LinkCita from './linkCita';
-import { loadedImg } from './utils';
+import { loadedImg, dinamicRef } from './utils';
 
 class Mobile extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.info = this.props.info
-        this.refSlider = createRef();
-        this.refSliderContainer = createRef();
-        this.refImage = createRef();
-        this.refAllSlide = [];
-        for (let i = 0; i < this.info.length; i++) {
-            this.refAllSlide[i] = React.createRef();
-        }
-
-        this.refDots = createRef();
 
         this.curLeft = 0
         this.moveX = 0
@@ -28,6 +18,12 @@ class Mobile extends React.Component {
         this.loadedCnt = 0;
         this.slideW = 0;
         this.totalSlides = this.info.length;
+
+        this.refSlider = createRef();
+        this.refSliderContainer = createRef();
+        this.refImage = createRef();
+        this.refAllSlide = dinamicRef(this.totalSlides);
+        this.refDots = createRef();
 
         this.def = {
             transition: {

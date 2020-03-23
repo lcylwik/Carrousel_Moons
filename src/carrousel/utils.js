@@ -1,3 +1,5 @@
+import { createRef } from 'react';
+
 let loadedCnt = 0;
 
 const loadedImg = ((el, callback, totalSlides) => {
@@ -25,4 +27,12 @@ const loadedImg = ((el, callback, totalSlides) => {
     }
 })
 
-export {loadedImg}
+const dinamicRef = (total) => {
+    let refs = [];
+    for (let i = 0; i < total; i++) {
+        refs[i] = createRef();
+    }
+    return refs
+}
+
+export {loadedImg, dinamicRef}

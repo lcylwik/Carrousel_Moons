@@ -3,27 +3,13 @@ import './style/slider.css'
 import './style/index.css'
 import Description from './description';
 import LinkCita from './linkCita';
-import { loadedImg } from './utils';
+import { loadedImg, dinamicRef } from './utils';
 
 class Tablet extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.info = this.props.info
-        this.refSlider = createRef();
-        this.refSliderTable = createRef();
-        this.refImage = createRef();
-        this.refAllSlide = [];
-        this.refAllStep = [];
-        for (let i = 0; i < this.info.length; i++) {
-            this.refAllSlide[i] = React.createRef();
-        }
-        for (let i = 0; i < this.info.length; i++) {
-            this.refAllStep[i] = React.createRef();
-        }
-
-        this.refDots = createRef();
 
         this.curLeft = 0
         this.moveX = 0
@@ -33,6 +19,12 @@ class Tablet extends React.Component {
         this.slideW = 0;
         this.offsetLeft = 0;
         this.totalSlides = this.info.length;
+
+        this.refSlider = createRef();
+        this.refSliderTable = createRef();
+        this.refImage = createRef();
+        this.refAllSlide = dinamicRef(this.totalSlides);
+        this.refDots = createRef();
 
         this.def = {
             transition: {
@@ -168,7 +160,7 @@ class Tablet extends React.Component {
                     <div>
                         <div ref={this.refSlider} className="slider_move_tablet" >
                             {this.info.map((item, index) => (
-                                <div key={index} ref={this.refAllStep[index]} className="step_container_images_table">
+                                <div key={index} className="step_container_images_table">
                                     <div ref={this.refAllSlide[index]} className="moons_image_two_table">
                                         <img alt="step-one" className="one_image_table" data-src={item.image_2} />
                                         <Description key={index} item={item}></Description>
