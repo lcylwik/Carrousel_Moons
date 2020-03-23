@@ -1,11 +1,13 @@
+let loadedCnt = 0;
+
 const loadedImg = ((el, callback, totalSlides) => {
-    let loaded = false, loadedCnt = 0;
+    let loaded = false;
     const loadHandler = () => {
         if (loaded) return;
         loaded = true;
         loadedCnt++;
         if (loadedCnt >= totalSlides) {
-            this.callback();
+            callback();
         }
     }
 
@@ -19,7 +21,7 @@ const loadedImg = ((el, callback, totalSlides) => {
             loadHandler()
         }
     } else {
-        this.callback();
+        callback();
     }
 })
 
