@@ -108,9 +108,9 @@ class Mobile extends React.Component {
         if (!stayAtCur) {
             dir === 'left' ? this.curSlide-- : this.curSlide++;
             if (this.curSlide < 0) {
-                this.curSlide = this.totalSlides - 1;
+                this.curSlide = 0;
             } else if (this.curSlide === this.totalSlides) {
-                this.curSlide = 1;
+                this.curSlide--;
             }
         }
 
