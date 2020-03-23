@@ -22,22 +22,23 @@
 }
 .carousel_tablet {
     display: none;
+    overflow-x: hidden;
 }
 
 .carousel_movil {
+    overflow-x: hidden;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
 }
 
 .slideshow_container {
-    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-.slider_no_active {
+.slider_botton {
     border: none;
     transition: opacity .25s;
     width: 6px;
@@ -85,7 +86,7 @@
 .scroll-touch {
     overflow-x: scroll;
     -ms-overflow-style: none;
-    overflow-y: hidden;
+    transition: 2s;
 }
 
 .scroll-touch::-webkit-scrollbar {
@@ -114,6 +115,7 @@
     }
     .carousel_tablet {
         display: initial;
+        overflow-x: hidden;
     }
 }
 

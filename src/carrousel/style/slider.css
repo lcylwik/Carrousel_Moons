@@ -16,10 +16,6 @@
     /* height: 130px; */
 }
 
-.carousel_tablet .container_text {
-    height: 293px; 
-}
-
 .carousel_tablet .step_carrousel_back {
     margin-top: 0px;
 }
@@ -58,18 +54,17 @@
 
 .moons_image_two_table, .moons_image_three_table {
     align-self: center;
-    border-radius: 45px;
+    border-radius: 44px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    width: 350px;
-    height: 550px;
 }
 
 .step_container_images_table{
-    width: 109%;
+    width: 100%;
     transform: translateX(0%);
     display: flex;
+    padding: 0 2% 0 2%;
 }
 
 .slideshow_container_table {
@@ -77,7 +72,7 @@
 }
 
 .slider_move_tablet {
-    width: 130%;
+    width: 150%;
     transform: translateX(0%);
     display: flex;
 }
@@ -85,6 +80,6 @@
 .one_image_table, .two_image_table, .three_image_table {
     align-self: center;
     width: 305px;
-    border-radius: 55px;
+    border-radius: 63px;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
 }
