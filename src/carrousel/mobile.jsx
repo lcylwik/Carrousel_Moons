@@ -3,6 +3,7 @@ import './style/slider.css'
 import './style/index.css'
 import Description from './description';
 import LinkCita from './linkCita';
+import { loadedImg } from './utils';
 
 class Mobile extends React.Component {
 
@@ -145,36 +146,11 @@ class Mobile extends React.Component {
         let allSlide = this.refAllSlide;
 
         for (let item of allSlide) {
-            this.loadedImg(item.current)
+            loadedImg(item.current, this.updateSliderDimension, this.totalSlides);
         }
         this.setDot();
         this.getSlideW();
     }
-
-    loadedImg = ((el) => {
-        let loaded = false;
-        const loadHandler = () => {
-            if (loaded) return;
-            loaded = true;
-            this.loadedCnt++;
-            if (this.loadedCnt >= this.totalSlides) {
-                this.updateSliderDimension();
-            }
-        }
-
-        let img = el.firstElementChild;
-        if (img) {
-            img.onload = loadHandler;
-            img.src = require(`${img.dataset.src}`);
-            img.style.width = "100%";
-            img.style.display = 'block';
-            if (img.complete) {
-                loadHandler()
-            }
-        } else {
-            this.updateSliderDimension();
-        }
-    })
 
     render() {
         return (
