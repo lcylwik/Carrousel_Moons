@@ -147,7 +147,7 @@ class Tablet extends React.Component {
         if (!stayAtCur) {
             dir === 'left' ? this.curSlide-=2 : this.curSlide+=2;
             if (this.curSlide < 0) {
-                this.curSlide = this.totalSlides - 1;
+                this.curSlide = 0;
             } else if (this.curSlide === this.totalSlides + 1) {
                 this.curSlide-=2;
             }

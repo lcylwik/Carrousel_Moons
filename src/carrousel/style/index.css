@@ -22,6 +22,7 @@
 }
 .carousel_tablet {
     display: none;
+    overflow-x: hidden;
 }
 
 .carousel_movil {
