@@ -1,5 +1,5 @@
 import React from 'react';
-import './style/slider.css'
+import '../../style/slider.css'
 
 const Description = ({ item }) => {
 

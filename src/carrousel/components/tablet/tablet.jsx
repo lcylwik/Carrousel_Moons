@@ -1,9 +1,9 @@
 import React, { createRef } from 'react';
-import './style/slider.css'
-import './style/index.css'
-import Description from './description';
-import LinkCita from './linkCita';
-import { loadedImg, dinamicRef } from './utils';
+import '../../style/slider.css'
+import '../../style/index.css'
+import Description from '../description/description';
+import LinkCita from '../link/linkCita';
+import { loadedImg, dinamicRef } from '../../utils';
 
 class Tablet extends React.Component {
 

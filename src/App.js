@@ -1,5 +1,5 @@
 import React from 'react';
-import Elements from './carrousel/elements'
+import Elements from './carrousel/components/index'
 
 function App() {
   return (

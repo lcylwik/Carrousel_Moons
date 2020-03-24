@@ -1,9 +1,9 @@
 import React from 'react';
-import './style/index.css'
-import Desktop from './desktop';
-import Mobile from './mobile';
-import Tablet from './tablet';
-import { data } from './data/information'
+import '../style/index.css'
+import Desktop from './desktop/desktop';
+import Mobile from './mobile/mobile';
+import Tablet from './tablet/tablet';
+import { data } from '../data/information'
 
 const Elements = () => {
 
@@ -17,7 +17,7 @@ const Elements = () => {
         <p className="header_title" dangerouslySetInnerHTML={createMarkup()}></p>
       </div>
       <Mobile info={information} />
-      <Tablet info={information}></Tablet>
+      <Tablet info={information}></Tablet> 
       <div className="carousel_desktop">
         {information.map(item => (
           <Desktop key={item.id} info={item} />
