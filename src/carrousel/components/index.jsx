@@ -18,11 +18,7 @@ const Elements = () => {
       </div>
       <Mobile info={information} />
       <Tablet info={information}></Tablet> 
-      <div className="carousel_desktop">
-        {information.map(item => (
-          <Desktop key={item.id} info={item} />
-        ))}
-      </div>
+      <Desktop info={information}/>
     </div>
   );
 }
