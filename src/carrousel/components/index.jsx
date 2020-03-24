@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/index.css'
+import style  from './index.module.css'
 import Desktop from './desktop/desktop';
 import Mobile from './mobile/mobile';
 import Tablet from './tablet/tablet';
@@ -12,12 +12,12 @@ const Elements = () => {
   const createMarkup = () => { return { __html: textHeader }; };
 
   return (
-    <div className="carousel_container">
-      <div className="carousel_header">
-        <p className="header_title" dangerouslySetInnerHTML={createMarkup()}></p>
+    <div className={style.CarouselContainer}>
+      <div className={style.CarouselHeader}>
+        <p className={style.HeaderTitle} dangerouslySetInnerHTML={createMarkup()}></p>
       </div>
       <Mobile info={information} />
-      <Tablet info={information}></Tablet> 
+      <Tablet info={information} />
       <Desktop info={information}/>
     </div>
   );
