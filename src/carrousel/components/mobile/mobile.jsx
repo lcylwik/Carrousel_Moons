@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import '../../style/slider.css'
 import '../../style/index.css'
 import Description from '../description/description';
-import LinkCita from '../link/linkCita';
+import LinkCita from '../link/link';
 import { loadedImg, dinamicRef } from '../../utils';
 
 class Mobile extends React.Component {

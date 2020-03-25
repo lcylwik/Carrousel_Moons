@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../style/index.css';
 import Description from '../description/description';
-import LinkCita from '../link/linkCita';
+import LinkCita from '../link/link';
 
 class Desktop extends React.Component {
 
