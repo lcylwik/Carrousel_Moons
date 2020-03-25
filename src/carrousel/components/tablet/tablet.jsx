@@ -75,7 +75,6 @@ class Tablet extends React.Component {
                 children[i].classList.remove(style.SliderActive);
             }
         }
-        this.refDots.current.children[this.curSlide].classList.add(style.SliderActive)
         this.setState({
             footerPosition: this.curSlide
         });
