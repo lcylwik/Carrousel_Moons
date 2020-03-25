@@ -30,3 +30,9 @@
 .TestimonialStar{
     width: 24px;
 }
+
+@media (min-width: 700px) {
+    .ContainerText {
+        margin-top: 0%;
+    }
+}

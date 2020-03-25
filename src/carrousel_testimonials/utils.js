@@ -33,4 +33,29 @@ const dinamicRef = (total) => {
     return refs
 }
 
-export {loadedImg, dinamicRef}
+const loadedImgTable = ((el, callback, totalSlides, style = true) => {
+    let loaded = false;
+    const loadHandler = () => {
+        if (loaded) return;
+        loaded = true;
+        loadedCnt++;
+        if (loadedCnt >= totalSlides) {
+            callback();
+        }
+    }
+
+    let img = el.firstElementChild;
+    if (img) {
+        img.onload = loadHandler;
+        img.src = require(`${img.dataset.src}`);
+        if (style) img.style.width = "100%";
+        img.style.display = 'block';
+        if (img.complete) {
+            loadHandler()
+        }
+    } else {
+        callback();
+    }
+})
+
+export {loadedImg, dinamicRef, loadedImgTable}
