@@ -88,7 +88,6 @@ class Mobile extends React.Component {
     }
 
     Moving = (e) => {
-        console.log("swipeMove")
         const touch = e.targetTouches[0] || e.changedTouches[0];
         this.moveX = touch.pageX;
 
@@ -99,7 +98,6 @@ class Mobile extends React.Component {
     }
 
     endMove = (e) => {
-        console.log("swipeEnd", e)
         this.getCurrentLeft();
 
         if (Math.abs(this.moveX - this.startX) === 0) return;
