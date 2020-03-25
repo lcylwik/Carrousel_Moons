@@ -181,6 +181,7 @@ class Mobile extends React.Component {
                 {this.info.map((item, index) => {
                     if (this.state.footerPosition === index) 
                     return (<Description key={item.id} item={item}></Description>)
+                    else return '';
                 })}
                 <LinkCita></LinkCita>
             </div>
