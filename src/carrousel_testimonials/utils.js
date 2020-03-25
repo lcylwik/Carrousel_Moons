@@ -3,7 +3,6 @@ import { createRef } from 'react';
 let loadedCnt = 0;
 
 const loadedImg = ((el, callback, totalSlides) => {
-    debugger
     let loaded = false;
     const loadHandler = () => {
         if (loaded) return;
@@ -14,14 +13,10 @@ const loadedImg = ((el, callback, totalSlides) => {
         }
     }
 
-    let div = el.firstElementChild;
     let image = require(`${el.dataset.image}`);
     if (el) {
         el.onload = loadHandler;
-       // el.style.backgroundImage = `url("../../assets/comment_1/group-15@2x.png")`;
         el.style.backgroundImage = `url(${image})`;
-        //   backgroundImage: "url(" + { Background } + ")"
-        // div.src = require(`${img.dataset.src}`);
         if (el.complete) {
             loadHandler()
         }

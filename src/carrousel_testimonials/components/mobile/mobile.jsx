@@ -29,7 +29,6 @@ class Mobile extends React.Component {
             },
             swipe: true,
             autoHeight: false,
-            afterChangeSlide: () => { }
         }
         this.state = {
             footerPosition: 0
@@ -112,10 +111,10 @@ class Mobile extends React.Component {
         }
 
         this.gotoSlide();
-        this.restValues();
+        this.resetValues();
     }
 
-    restValues = () => {
+    resetValues = () => {
         this.startX = 0;
         this.moveX = 0;
     }
@@ -159,7 +158,7 @@ class Mobile extends React.Component {
                             {this.info.map((item, index) => {
                                 return (
                                     <div ref={this.refAllSlideTes[index]} key={index} data-image={item.image} className={style.StepContainerImages}>
-                                       <Description key={index} item={item}></Description>
+                                       <Description item={item}></Description>
                                     </div>
                                 )
                             })}

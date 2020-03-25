@@ -21,7 +21,7 @@
     justify-content: center;
     display: flex;
     padding-left: 2%;
-    margin: 2%;
+    margin: 1%;
     background-image: url("../../assets/comment_1/group-15@2x.png");
     justify-content: center;
     border-radius: 21px;
@@ -29,6 +29,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
+    width: 40%;
 }
 
 .SliderActive {

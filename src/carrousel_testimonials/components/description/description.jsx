@@ -7,7 +7,7 @@ const Description = ({ item }) => {
   const starts = () => {
     let starts = [];
     for (var i = 0; i < 5; i++) {
-      starts.push(<img src={start} alt={`start_${i}`} className={style.TestimonialStar} />);
+      starts.push(<img key={i} src={start} alt={`start_${i}`} className={style.TestimonialStar} />);
     }
     return starts
   }
