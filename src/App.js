@@ -1,10 +1,10 @@
 import React from 'react';
-import Elements from './carrousel/components/index'
+import CarrouselSteps from './carrousel/components/index'
 
 function App() {
   return (
     <div className="App">
-      <Elements></Elements> 
+      <CarrouselSteps></CarrouselSteps> 
     </div>
   );
 }

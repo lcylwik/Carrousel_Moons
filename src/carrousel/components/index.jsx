@@ -5,7 +5,7 @@ import Mobile from './mobile/mobile';
 import Tablet from './tablet/tablet';
 import { data } from '../data/information'
 
-const Elements = () => {
+const CarrouselSteps = () => {
 
   const information = data;
   const textHeader = information[1].header;
@@ -23,4 +23,4 @@ const Elements = () => {
   );
 }
 
-export default Elements;
+export default CarrouselSteps;
