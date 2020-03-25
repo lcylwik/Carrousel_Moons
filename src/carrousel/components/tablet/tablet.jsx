@@ -1,6 +1,5 @@
 import React, { createRef } from 'react';
-import '../../style/slider.css'
-import '../../style/index.css'
+import style from './tablet.module.css';
 import Description from '../description/description';
 import LinkCita from '../link/link';
 import { loadedImg, dinamicRef } from '../../utils';
@@ -64,11 +63,19 @@ class Tablet extends React.Component {
     }
 
     setDot = () => {
-        for (const el of this.refDots.current.children) {
-            el.classList.remove("slider_active")
+        let children = this.refDots.current.children;
+        for (let i = 0; i < children.length; i++) {
+            if (i === 1) {
+                children[i].classList.add(style.SliderActive);
+            } else if(i === this.curSlide) {
+                children[i].classList.add(style.SliderActive);
+                children[i].classList.remove(style.SliderBotton);
+            } else {
+                children[i].classList.add(style.SliderBotton);
+                children[i].classList.remove(style.SliderActive);
+            }
         }
-        this.refDots.current.children[this.curSlide].classList.add("slider_active")
-        this.refDots.current.children[1].classList.add("slider_active")
+        this.refDots.current.children[this.curSlide].classList.add(style.SliderActive)
         this.setState({
             footerPosition: this.curSlide
         });
@@ -155,14 +162,14 @@ class Tablet extends React.Component {
 
     render() {
         return (
-            <div className="carousel_tablet">
-                <div ref={this.refSliderTable} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className="slideshow_container_table">
+            <div className={style.CarouselTablet}>
+                <div ref={this.refSliderTable} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideshowContainerTable}>
                     <div>
-                        <div ref={this.refSlider} className="slider_move_tablet" >
+                        <div ref={this.refSlider} className={style.SliderMoveTablet} >
                             {this.info.map((item, index) => (
-                                <div key={index} className="step_container_images_table">
-                                    <div ref={this.refAllSlide[index]} className="moons_image_two_table">
-                                        <img alt="step-one" className="one_image_table" data-src={item.image_2} />
+                                <div key={index} className={style.StepContainerImagesTable}>
+                                    <div ref={this.refAllSlide[index]} className={style.MoonsImageTwoTable}>
+                                        <img alt="step-one" className={style.OneImageTable} data-src={item.image_2} />
                                         <Description key={index} item={item}></Description>
                                     </div>
                                 </div>
@@ -170,9 +177,9 @@ class Tablet extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div ref={this.refDots} className="slider_boot_out">
+                <div ref={this.refDots} className={style.SliderBootOut}>
                     {this.info.map((item, index) => {
-                        return (<button key={index} className="slider_botton" onClick={(e) => { this.gotoSlide(index) }}>
+                        return (<button key={index} onClick={(e) => { this.gotoSlide(index) }}>
                         </button>)
                     })}
                 </div>
