@@ -15,9 +15,9 @@
 }
 
 .StepContainerImagesTable{
-    width: 100%;
+    width: 30%;
     display: flex;
-    padding: 0 1% 0 1%;
+    padding: 0 2% 1% 2%;
 }
 
 .MoonsImageTwoTable {
@@ -48,29 +48,24 @@
     vertical-align: middle;
 }
 
-.SliderBootOut {
-    position: static;
-    align-self: center;
-    bottom: 5px;
-    margin-top: 10px;
-    z-index: 1;
-    height: 20px;
+.Circle {
+    width: 85px;
+    height: 85px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    position: absolute;
+    top: 22rem;
+    color: white;
+    font-size: 26px;
     text-align: center;
 }
 
-.SliderBotton {
-    border: none;
-    transition: opacity .25s;
-    width: 6px;
-    height: 6px;
-    background-color: #d8d8d8;
-    border-radius: 3px;
-    opacity: .5;
-    z-index: 100;
-    padding: 0;
-    margin-left: 5px;
-    margin-right: 5px;
-    vertical-align: middle;
+.Prev {
+   left: 0rem;
+}
+
+.Next {
+   right: 0rem;
 }
 
 @media (min-width: 700px) {

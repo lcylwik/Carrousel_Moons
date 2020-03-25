@@ -57,27 +57,9 @@ class Tablet extends React.Component {
         for (let item of allSlide) {
             loadedImgTable(item.current, this.updateSliderDimension, this.totalSlides);
         }
-        this.setDot();
         this.getSlideW();
     }
 
-    setDot = () => {
-        let children = this.refDots.current.children;
-        for (let i = 0; i < children.length; i++) {
-            if (i === 1) {
-                children[i].classList.add(style.SliderActive);
-            } else if(i === this.curSlide) {
-                children[i].classList.add(style.SliderActive);
-                children[i].classList.remove(style.SliderBotton);
-            } else {
-                children[i].classList.add(style.SliderBotton);
-                children[i].classList.remove(style.SliderActive);
-            }
-        }
-        this.setState({
-            footerPosition: this.curSlide
-        });
-    }
 
     updateSliderDimension = (e) => {
         this.slideW = this.getSlideW();
@@ -115,7 +97,6 @@ class Tablet extends React.Component {
             this.refSliderTable.current.style.transition = ''
         }, this.def.transition.speed);
 
-        this.setDot();
     }
 
     startMove = (e) => {
@@ -173,14 +154,11 @@ class Tablet extends React.Component {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                      </div>
                 </div>
-                <div ref={this.refDots} className={style.SliderBootOut}>
-                    {this.info.map((item, index) => {
-                        return (<button key={index} onClick={(e) => { this.gotoSlide(index) }}>
-                        </button>)
-                    })}
-                </div>
+                <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { console.log(e) }}>{"<"}</button>
+                <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { console.log(e) }}>{">"}</button>
+                  
             </div>
         );
     }
