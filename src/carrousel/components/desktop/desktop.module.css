@@ -1,0 +1,31 @@
+.CarouselDesktop {
+    display: none;
+}
+
+.PhotoDesktop{
+    flex-direction: column;
+    width: 300%;
+    height: 500px;
+    align-self: center;
+    border-radius: 45px;
+    float: left;
+    display: inline-flex;
+}
+
+.CarouselImage{
+    align-self: center;
+    border-radius: 55px;
+    box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
+}
+
+@media (min-width: 1040px) {
+    .CarouselDesktop {
+        display: initial;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+        height: 100%;
+        align-self: center;
+        padding-left: 5%;
+    }
+}

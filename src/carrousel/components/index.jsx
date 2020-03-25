@@ -1,30 +1,26 @@
 import React from 'react';
-import '../style/index.css'
+import style  from './index.module.css'
 import Desktop from './desktop/desktop';
 import Mobile from './mobile/mobile';
 import Tablet from './tablet/tablet';
 import { data } from '../data/information'
 
-const Elements = () => {
+const CarrouselSteps = () => {
 
   const information = data;
   const textHeader = information[1].header;
   const createMarkup = () => { return { __html: textHeader }; };
 
   return (
-    <div className="carousel_container">
-      <div className="carousel_header">
-        <p className="header_title" dangerouslySetInnerHTML={createMarkup()}></p>
+    <div className={style.CarouselContainer}>
+      <div className={style.CarouselHeader}>
+        <p className={style.HeaderTitle} dangerouslySetInnerHTML={createMarkup()}></p>
       </div>
       <Mobile info={information} />
-      <Tablet info={information}></Tablet> 
-      <div className="carousel_desktop">
-        {information.map(item => (
-          <Desktop key={item.id} info={item} />
-        ))}
-      </div>
+      <Tablet info={information} />
+      <Desktop info={information}/>
     </div>
   );
 }
 
-export default Elements;
+export default CarrouselSteps;

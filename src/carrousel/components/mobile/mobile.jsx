@@ -1,8 +1,7 @@
 import React, { createRef } from 'react';
-import '../../style/slider.css'
-import '../../style/index.css'
+import style from './mobile.module.css';
 import Description from '../description/description';
-import LinkCita from '../link/linkCita';
+import LinkCita from '../link/link';
 import { loadedImg, dinamicRef } from '../../utils';
 
 class Mobile extends React.Component {
@@ -67,10 +66,16 @@ class Mobile extends React.Component {
     }
 
     setDot = () => {
-        for (const el of this.refDots.current.children) {
-            el.classList.remove("slider_active")
+        let children = this.refDots.current.children;
+        for (let i = 0; i < children.length; i++) {
+            if(i === this.curSlide) {
+                children[i].classList.add(style.SliderActive);
+                children[i].classList.remove(style.SliderBotton);
+            } else {
+                children[i].classList.add(style.SliderBotton);
+                children[i].classList.remove(style.SliderActive);
+            }
         }
-        this.refDots.current.children[this.curSlide].classList.add("slider_active")
         this.setState({
             footerPosition: this.curSlide
         });
@@ -150,15 +155,15 @@ class Mobile extends React.Component {
 
     render() {
         return (
-            <div className="carousel_movil">
-                <div ref={this.refSliderContainer} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className="slideshow_container">
+            <div className={style.CarouselMovil}>
+                <div ref={this.refSliderContainer} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideshowContainer}>
                     <div>
-                        <div ref={this.refSlider} className="slider_move_0" >
+                        <div ref={this.refSlider} className={style.SliderMove} >
                             {this.info.map((item, index) => {
                                 return (
-                                    <div key={index} className="step_container_images">
-                                        <div ref={this.refAllSlide[index]} className="moons_image_carrusel">
-                                            <img ref={this.refImage} alt="step-one" data-src={item.image_2} className="steps-image" />
+                                    <div key={index} className={style.StepContainerImages}>
+                                        <div ref={this.refAllSlide[index]} >
+                                            <img ref={this.refImage} alt="step-one" data-src={item.image_2} />
                                         </div>
                                     </div>
                                 )
@@ -166,9 +171,9 @@ class Mobile extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div ref={this.refDots} className="slider_boot_out">
+                <div ref={this.refDots} className={style.SliderBootOut}>
                     {this.info.map((item, index) => {
-                        return (<button key={index} className="slider_botton" onClick={(e) => { this.gotoSlide(index) }}>
+                        return (<button key={index} onClick={(e) => { this.gotoSlide(index) }}>
                         </button>)
                     })}
                 </div>

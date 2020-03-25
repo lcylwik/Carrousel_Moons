@@ -1,0 +1,76 @@
+.CarouselMovil {
+    overflow-x: hidden;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.SlideshowContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.SliderMove {
+    display: flex;
+    width: 260%;
+}
+
+.StepContainerImages {
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 45px;
+    padding-left: 2%;
+}
+
+.SliderActive {
+    border: none;
+    width: 10px;
+    height: 10px;
+    background-color: #99bffc;
+    border-radius: 5px;
+    opacity: .5;
+    z-index: 100;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.SliderBootOut {
+    position: static;
+    align-self: center;
+    bottom: 5px;
+    margin-top: 10px;
+    z-index: 1;
+    height: 20px;
+    text-align: center;
+}
+
+.SliderBotton {
+    border: none;
+    transition: opacity .25s;
+    width: 6px;
+    height: 6px;
+    background-color: #d8d8d8;
+    border-radius: 3px;
+    opacity: .5;
+    z-index: 100;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+@media (min-width: 700px) {
+    .CarouselMovil {
+        display: none;
+    }
+}
+
+@media (min-width: 633px) and (max-width: 700px) {
+    .StepContainerImages{
+        width: 30%;
+    }
+}
