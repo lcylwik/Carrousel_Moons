@@ -3,7 +3,6 @@ import { createRef } from 'react';
 let loadedCnt = 0;
 
 const loadedImg = ((el, callback, totalSlides, style = true) => {
-    debugger
     let loaded = false;
     const loadHandler = () => {
         if (loaded) return;
