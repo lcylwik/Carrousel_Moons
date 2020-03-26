@@ -15,6 +15,7 @@ class Mobile extends React.Component {
         this.curSlide = 0
         this.loadedCnt = 0;
         this.slideW = 0;
+        this.slideMargin = 0;
         this.totalSlides = this.info.length;
 
         this.refSliderTes = createRef();
@@ -53,7 +54,7 @@ class Mobile extends React.Component {
             this.curSlide = n;
         }
         this.refSliderContainerTes.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
-        this.refSliderContainerTes.current.style.left = `${-this.curSlide * this.slideW}px`
+        this.refSliderContainerTes.current.style.left = `${-this.curSlide * (this.slideW +  this.slideMargin * 2)}px`
 
         setTimeout(() => {
             this.refSliderContainerTes.current.style.transition = ''
@@ -126,19 +127,25 @@ class Mobile extends React.Component {
 
     updateSlider = (e) => {
         if(window.innerWidth >= 471){
-            this.refSliderTes.current.style.width = `${(400 + 9) * this.totalSlides}px`;
+            this.refSliderTes.current.style.width = `${(400 + this.slideMargin) * this.totalSlides}px`;
         } else {
-            this.refSliderTes.current.style.width = `${(295 + 9) * this.totalSlides}px`;
+            this.refSliderTes.current.style.width = `${(295 + this.slideMargin) * this.totalSlides}px`;
         }
         this.slideW = this.getSlideW();
         this.refSliderTes.current.style.left = `${- this.slideW * this.curSlide}px`;
+        this.gotoSlide(0);
     }
 
     getSlideW = () => {
         const allSlider = this.refAllSlideTes;
-        if (allSlider.length > 0 && allSlider[0].current) 
-            this.slideW = parseInt(allSlider[0].current.offsetWidth);
-        else this.slideW = 0
+        let node = allSlider[0].current;
+        if (allSlider.length > 0 && node) {
+            this.slideW = parseInt(node.offsetWidth);
+            let nodeStyle = window.getComputedStyle(node)
+            this.slideMargin = parseInt(nodeStyle.getPropertyValue('margin-right'));
+        } else {
+            this.slideW = 0;
+        } 
         return this.slideW;
     }
 
