@@ -155,10 +155,9 @@ class Tablet extends React.Component {
                             ))}
                         </div>
                       </div>
-                </div>
-                <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { console.log(e) }}>{"<"}</button>
-                <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { console.log(e) }}>{">"}</button>
-                  
+                  </div>  
+                  <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.gotoSlide(0)}}>{"<"}</button>
+                  <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.gotoSlide(2) }}>{">"}</button> 
             </div>
         );
     }

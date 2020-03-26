@@ -54,10 +54,10 @@
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 50%;
     position: absolute;
-    top: 22rem;
     color: white;
     font-size: 26px;
     text-align: center;
+    margin-top: 20%;
 }
 
 .Prev {
@@ -70,7 +70,7 @@
 
 @media (min-width: 700px) {
     .CarouselTablet {
-        display: initial;
+        display: flex;
         overflow-x: hidden;
     }
 }
