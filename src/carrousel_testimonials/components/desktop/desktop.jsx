@@ -29,8 +29,10 @@ class Desktop extends React.Component {
                         </div>
                     )
                 })}
+                <div className={style.ButtonsDesktop}>
                 <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { }}>{"<"}</button>
                 <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { }}>{">"}</button>
+                </div>
             </div >
 
         );

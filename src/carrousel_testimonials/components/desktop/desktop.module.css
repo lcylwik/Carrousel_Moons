@@ -9,7 +9,9 @@
     float: left;
     display: inline-flex;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
-    margin: 5%;
+    margin: 3%;
+    width: 319px;
+    height: 415px;
 }
 
 .CarouselImage{
@@ -17,16 +19,22 @@
     width: 100%;
 }
 
+.ButtonsDesktop{
+    position: absolute;
+    margin-top: 200px;
+    width: 997px;
+    display: flex;
+    height: 415px;
+}
+
 .Circle {
-    width: 85px;
-    height: 85px;
+    width: 70px;
+    height: 70px;
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 50%;
-    position: absolute;
     color: white;
     font-size: 26px;
     text-align: center;
-    margin-top: 20%;
 }
 
 .Prev {
@@ -35,6 +43,7 @@
 
 .Next {
    right: 2rem;
+   margin-left: 85%;
 }
 
 @media (min-width: 1040px) {
