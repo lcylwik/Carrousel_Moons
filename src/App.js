@@ -5,7 +5,7 @@ import CarrouselTestimonials from './carrousel_testimonials/components/index'
 function App() {
   return (
     <div className="App">
-      <CarrouselSteps></CarrouselSteps> 
+      <CarrouselSteps></CarrouselSteps>
       <CarrouselTestimonials></CarrouselTestimonials>
     </div>
   );

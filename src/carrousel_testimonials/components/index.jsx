@@ -1,6 +1,6 @@
 import React from 'react';
 import style  from './index.module.css'
-// import Desktop from './desktop/desktop';
+import Desktop from './desktop/desktop';
 import Mobile from './mobile/mobile';
 import Tablet from './tablet/tablet';
 import { data } from '../data/testimonials.json'
@@ -18,7 +18,7 @@ const CarrouselTestimonials = () => {
       </div>
        <Mobile info={information} />
        <Tablet info={information} />
-       {/* <Desktop info={information}/> */}
+       <Desktop info={information}/>
     </div>
   );
 }
