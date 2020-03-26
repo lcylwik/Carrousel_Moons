@@ -125,6 +125,11 @@ class Mobile extends React.Component {
     }
 
     updateSlider = (e) => {
+        if(window.innerWidth >= 471){
+            this.refSliderTes.current.style.width = `${(400 + 9) * this.totalSlides}px`;
+        } else {
+            this.refSliderTes.current.style.width = `${(295 + 9) * this.totalSlides}px`;
+        }
         this.slideW = this.getSlideW();
         this.refSliderTes.current.style.left = `${- this.slideW * this.curSlide}px`;
     }

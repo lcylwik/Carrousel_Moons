@@ -13,22 +13,21 @@
 
 .SliderMove {
     display: flex;
-    width: 260%;
+    height: 450px
 }
 
 .StepContainerImages {
     align-self: center;
     justify-content: center;
     display: flex;
-    margin: 1%;
-    background-image: url("../../assets/comment_1/group-15@2x.png");
+    margin: 9px;
     justify-content: center;
-    border-radius: 21px;
+    border-radius: 32px;
     height: 100%;
     background-size: contain;
     background-repeat: no-repeat;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
-    width: 40%;
+    width: 295px;
 }
 
 .SliderActive {
@@ -76,8 +75,11 @@
     }
 }
 
-@media (min-width: 633px) and (max-width: 700px) {
+@media (min-width: 471px) and (max-width: 700px) {
     .StepContainerImages{
-        width: 30%;
+        width: 500px;
+    }
+    .SliderMove {
+        height: 550px;
     }
 }
