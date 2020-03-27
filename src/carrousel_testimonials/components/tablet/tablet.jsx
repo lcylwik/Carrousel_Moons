@@ -92,7 +92,7 @@ class Tablet extends React.Component {
 
     gotoSlide = (n) => {  
         if (n === "prev" && this.curSlide !== 0) this.curSlide--;
-        if (n === "next" && this.curSlide !== this.totalSlides - 1) this.curSlide++
+        if (n === "next" && this.curSlide !== this.totalSlides - 2) this.curSlide++
 
         this.refSliderTable.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
         this.refSliderTable.current.style.left = `${-this.curSlide * (this.slideW +  this.slideMargin * 2)}px`
@@ -129,7 +129,7 @@ class Tablet extends React.Component {
             dir === 'left' ? this.curSlide -= 1 : this.curSlide += 1;
             if (this.curSlide < 0) {
                 this.curSlide = 0;
-            } else if (this.curSlide === this.totalSlides) {
+            } else if (this.curSlide === this.totalSlides - 1) {
                 this.curSlide -= 1;
             }
         }
