@@ -10,9 +10,8 @@
 }
 
 .SliderMoveTablet {
-    width: 150%;
-    transform: translateX(0%);
     display: flex;
+    overflow-y: hidden;
 }
 
 .StepContainerImagesTable{
@@ -25,7 +24,7 @@
     align-self: center;
     border-radius: 44px;
     display: flex;
-    height: 450px;
+    height: 460px;
     justify-content: space-between;
     flex-direction: column;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
