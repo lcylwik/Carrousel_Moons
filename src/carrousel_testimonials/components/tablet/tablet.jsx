@@ -67,6 +67,8 @@ class Tablet extends React.Component {
 
         this.slideW = this.getSlideW();
         this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
+        this.curSlide = 0;
+        this.gotoSlide();
     }
 
     getSlideW = () => {
@@ -74,7 +76,7 @@ class Tablet extends React.Component {
         let node = allSlider[0].current;
         if (allSlider.length > 0 && node) {
             this.slideW = parseInt(node.offsetWidth);
-            let nodeStyle = window.getComputedStyle(node)
+            let nodeStyle = window.getComputedStyle(node.parentNode)
             this.slideMargin = parseInt(nodeStyle.getPropertyValue('margin-right'));
         } else {
             this.slideW = 0;
@@ -123,11 +125,11 @@ class Tablet extends React.Component {
         const dir = this.startX < this.moveX ? 'left' : 'right';
 
         if (!stayAtCur) {
-            dir === 'left' ? this.curSlide -= 2 : this.curSlide += 2;
+            dir === 'left' ? this.curSlide -= 1 : this.curSlide += 1;
             if (this.curSlide < 0) {
                 this.curSlide = 0;
-            } else if (this.curSlide === this.totalSlides + 1) {
-                this.curSlide -= 2;
+            } else if (this.curSlide === this.totalSlides) {
+                this.curSlide -= 1;
             }
         }
         this.gotoSlide();
