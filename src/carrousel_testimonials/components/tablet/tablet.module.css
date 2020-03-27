@@ -36,20 +36,6 @@
     width: 305px;
 }
 
-.SliderActive {
-    border: none;
-    width: 10px;
-    height: 10px;
-    background-color: #99bffc;
-    border-radius: 5px;
-    opacity: .5;
-    z-index: 100;
-    padding: 0;
-    margin-left: 5px;
-    margin-right: 5px;
-    vertical-align: middle;
-}
-
 .Circle {
     width: 85px;
     height: 85px;

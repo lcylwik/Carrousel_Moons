@@ -15,15 +15,12 @@ class Tablet extends React.Component {
         this.curSlide = 0
         this.loadedCnt = 0;
         this.slideW = 0;
-        this.offsetLeft = 0;
         this.slideMargin = 0;
         this.totalSlides = this.info.length;
 
         this.refSlider = createRef();
         this.refSliderTable = createRef();
-        this.refImage = createRef();
         this.refAllSlide = dinamicRef(this.totalSlides);
-        this.refDots = createRef();
 
         this.def = {
             transition: {
@@ -32,10 +29,6 @@ class Tablet extends React.Component {
             },
             swipe: true,
             autoHeight: false,
-            afterChangeSlide: () => { }
-        }
-        this.state = {
-            footerPosition: 0
         }
     }
 
