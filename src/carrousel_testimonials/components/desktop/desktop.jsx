@@ -60,7 +60,7 @@ class Desktop extends React.Component {
 
         this.slideW = this.getSlideW();
         // this.refSliderDesktop.current.style.left = `${- this.slideW * this.curSlide}px`;
-        if (this.slideW === 0) {
+        if (this.curSlide === 0) {
             this.refSliderDesktop.current.style.left = `${-this.fatherPadding / 2}px`
         }
     }
