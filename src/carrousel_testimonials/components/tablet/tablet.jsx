@@ -58,10 +58,18 @@ class Tablet extends React.Component {
     updateSliderDimension = (e) => {
         this.refSlider.current.style.width = `${(450 + this.slideMargin) * this.totalSlides}px`;
 
+        this.refresImage()
         this.slideW = this.getSlideW();
+
         this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
-        this.curSlide = 0;
-        this.gotoSlide();
+    }
+
+    refresImage = () => {
+        for (let node of this.refAllSlide) {
+            let widthParent = node.current.parentNode.offsetWidth;
+            let img = node.current.firstElementChild;
+            img.style.width = `${widthParent}px`
+        }
     }
 
     getSlideW = () => {
@@ -137,6 +145,7 @@ class Tablet extends React.Component {
     render() {
         return (
             <div className={style.CarouselTablet}>
+                <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.gotoSlide("prev") }}>{"<"}</button>
                 <div ref={this.refSliderTable} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideshowContainerTable}>
                     <div>
                         <div ref={this.refSlider} className={style.SliderMoveTablet} >
@@ -151,7 +160,6 @@ class Tablet extends React.Component {
                         </div>
                     </div>
                 </div>
-                <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.gotoSlide("prev") }}>{"<"}</button>
                 <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.gotoSlide("next") }}>{">"}</button>
             </div>
         );
