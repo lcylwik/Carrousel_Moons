@@ -58,6 +58,7 @@ class Tablet extends React.Component {
         for (let item of allSlide) {
             loadedImg(item.current, this.updateSliderDimension, this.totalSlides);
         }
+        this.refSliderTable.current.style.left = `0px`
         this.setDot();
         this.getSlideW();
     }
