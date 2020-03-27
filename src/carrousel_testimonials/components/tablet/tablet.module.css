@@ -2,6 +2,7 @@
     display: none;
     overflow-x: hidden;
     margin-top: 0px;
+    margin: 0 80px;
 }
 
 .SlideshowContainerTable {
@@ -15,15 +16,16 @@
 }
 
 .StepContainerImagesTable{
-    width: 30%;
+    width: 240px;
     display: flex;
-    padding: 0 2% 1% 2%;
+    margin: 0 16px 8px 16px;
 }
 
 .MoonsImageTwoTable {
     align-self: center;
     border-radius: 44px;
     display: flex;
+    height: 450px;
     justify-content: space-between;
     flex-direction: column;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
@@ -72,6 +74,51 @@
     .CarouselTablet {
         display: flex;
         overflow-x: hidden;
+    }
+}
+
+@media (min-width: 750px) {
+    .StepContainerImagesTable{
+        width: 270px;
+    }
+    .MoonsImageTwoTable {
+        height: 420px;
+    }
+}
+
+@media (min-width: 800px) {
+    .StepContainerImagesTable{
+        width: 300px;
+    }
+    .MoonsImageTwoTable {
+        height: 440px;
+    }
+}
+
+@media (min-width: 850px) {
+    .StepContainerImagesTable{
+        width: 320px;
+    }
+    .MoonsImageTwoTable {
+        height: 450px;
+    }
+}
+
+@media (min-width: 928px) {
+    .StepContainerImagesTable{
+        width: 350px;
+    }
+    .MoonsImageTwoTable {
+        height: 490px;
+    }
+}
+
+@media (min-width: 978px) {
+    .StepContainerImagesTable{
+        width: 380px;
+    }
+    .MoonsImageTwoTable {
+        height: 500px;
     }
 }
 

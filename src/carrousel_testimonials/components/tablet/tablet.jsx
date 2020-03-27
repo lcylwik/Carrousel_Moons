@@ -16,6 +16,7 @@ class Tablet extends React.Component {
         this.loadedCnt = 0;
         this.slideW = 0;
         this.offsetLeft = 0;
+        this.slideMargin = 0;
         this.totalSlides = this.info.length;
 
         this.refSlider = createRef();
@@ -62,17 +63,24 @@ class Tablet extends React.Component {
 
 
     updateSliderDimension = (e) => {
+        this.refSlider.current.style.width = `${(450 + this.slideMargin) * this.totalSlides}px`;
+
         this.slideW = this.getSlideW();
         this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
+        this.curSlide = 0;
+        this.gotoSlide();
     }
 
     getSlideW = () => {
         const allSlider = this.refAllSlide;
-        if (allSlider.length > 0) {
-            this.slideW = parseInt(allSlider[0].current.offsetWidth);
-            this.offsetLeft = parseInt(allSlider[0].current.offsetLeft);
-        }
-        else this.slideW = 0
+        let node = allSlider[0].current;
+        if (allSlider.length > 0 && node) {
+            this.slideW = parseInt(node.offsetWidth);
+            let nodeStyle = window.getComputedStyle(node.parentNode)
+            this.slideMargin = parseInt(nodeStyle.getPropertyValue('margin-right'));
+        } else {
+            this.slideW = 0;
+        } 
         return this.slideW;
     }
 
@@ -81,22 +89,16 @@ class Tablet extends React.Component {
         if (left) this.curLeft = parseInt(left, 10);
     }
 
-    gotoSlide = (n) => {
-        if (n === 1) return;
-        if (n !== undefined) {
-            this.curSlide = n;
-        }
+    gotoSlide = (n) => {  
+        if (n === "prev" && this.curSlide !== 0) this.curSlide--;
+        if (n === "next" && this.curSlide !== this.totalSlides - 1) this.curSlide++
+
         this.refSliderTable.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
-        if (this.curSlide === 0) {
-            this.refSliderTable.current.style.left = `${-(this.curSlide) * this.slideW}px`
-        } else {
-            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * this.slideW - 2 * this.offsetLeft}px`
-        }
+        this.refSliderTable.current.style.left = `${-this.curSlide * (this.slideW +  this.slideMargin * 2)}px`
 
         setTimeout(() => {
             this.refSliderTable.current.style.transition = ''
         }, this.def.transition.speed);
-
     }
 
     startMove = (e) => {
@@ -111,7 +113,7 @@ class Tablet extends React.Component {
 
         if (Math.abs(this.moveX - this.startX) < 40) return;
 
-        this.refSliderTable.current.style.left = `${this.curLeft + this.moveX - this.startX}px`
+        this.refSliderTable.current.style.left = `${this.curLeft + 1 + this.moveX - this.startX}px`
     }
 
     endMove = (e) => {
@@ -123,11 +125,11 @@ class Tablet extends React.Component {
         const dir = this.startX < this.moveX ? 'left' : 'right';
 
         if (!stayAtCur) {
-            dir === 'left' ? this.curSlide-=2 : this.curSlide+=2;
+            dir === 'left' ? this.curSlide -= 1 : this.curSlide += 1;
             if (this.curSlide < 0) {
                 this.curSlide = 0;
-            } else if (this.curSlide === this.totalSlides + 1) {
-                this.curSlide-=2;
+            } else if (this.curSlide === this.totalSlides) {
+                this.curSlide -= 1;
             }
         }
         this.gotoSlide();
@@ -154,10 +156,10 @@ class Tablet extends React.Component {
                                 </div>
                             ))}
                         </div>
-                      </div>
-                  </div>  
-                  <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.gotoSlide(0)}}>{"<"}</button>
-                  <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.gotoSlide(2) }}>{">"}</button> 
+                    </div>
+                </div>
+                <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.gotoSlide("prev") }}>{"<"}</button>
+                <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.gotoSlide("next") }}>{">"}</button>
             </div>
         );
     }
