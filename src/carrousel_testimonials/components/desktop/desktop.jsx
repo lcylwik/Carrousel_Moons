@@ -17,6 +17,7 @@ class Desktop extends React.Component {
         this.loadedCnt = 0;
         this.slideW = 0;
         this.slideMargin = 0;
+        this.fatherPadding = 0;
         this.totalSlides = this.info.length;
 
         this.refSliderDesktop = createRef();
@@ -58,16 +59,22 @@ class Desktop extends React.Component {
         this.refSliderDesktop.current.style.width = `${(450 + this.slideMargin) * this.totalSlides}px`;
 
         this.slideW = this.getSlideW();
-        this.refSliderDesktop.current.style.left = `${- this.slideW * this.curSlide}px`;
+        // this.refSliderDesktop.current.style.left = `${- this.slideW * this.curSlide}px`;
+        if (this.slideW === 0) {
+            this.refSliderDesktop.current.style.left = `${-this.fatherPadding / 2}px`
+        }
     }
 
     getSlideW = () => {
+        debugger
         const allSlider = this.refSlides;
         let node = allSlider[0].current;
         if (allSlider.length > 0 && node) {
             this.slideW = parseInt(node.offsetWidth);
             let nodeStyle = window.getComputedStyle(node)
+            let patherStyle = window.getComputedStyle(node.parentNode)
             this.slideMargin = parseInt(nodeStyle.getPropertyValue('margin-right'));
+            this.fatherPadding = parseInt(patherStyle.getPropertyValue('padding-left'));
         } else {
             this.slideW = 0;
         }
@@ -75,12 +82,11 @@ class Desktop extends React.Component {
     }
 
     gotoSlide = (n) => {
-        debugger
         if (n === "prev" && this.curSlide !== 0) this.curSlide--;
-        if (n === "next" && this.curSlide !== this.totalSlides - 1) this.curSlide++
+        if (n === "next" && this.curSlide !== this.totalSlides - 3) this.curSlide++
 
         this.refSliderDesktop.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
-        this.refSliderDesktop.current.style.left = `${-this.curSlide * (this.slideW + this.slideMargin * 2)}px`
+        this.refSliderDesktop.current.style.left = `${-this.curSlide * (this.slideW + this.slideMargin * 2) - this.fatherPadding / 2}px`
 
         setTimeout(() => {
             this.refSliderDesktop.current.style.transition = ''
@@ -119,7 +125,7 @@ class Desktop extends React.Component {
             dir === 'left' ? this.curSlide -= 1 : this.curSlide += 1;
             if (this.curSlide < 0) {
                 this.curSlide = 0;
-            } else if (this.curSlide === this.totalSlides) {
+            } else if (this.curSlide === this.totalSlides - 2) {
                 this.curSlide -= 1;
             }
         }
@@ -135,6 +141,8 @@ class Desktop extends React.Component {
     render() {
         return (
             <div className={style.CarouselDesktop}>
+                {this.totalSlides > 3 &&
+                    <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.gotoSlide("prev") }}>{"<"}</button>}
                 <div ref={this.refSliderDesktop} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideShowContainerDesktop}>
                     {this.info.map((info, index) => {
                         return (
@@ -146,12 +154,8 @@ class Desktop extends React.Component {
                     })}
                 </div>
                 {this.totalSlides > 3 &&
-                    <div>
-                        <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.gotoSlide("prev") }}>{"<"}</button>
-                        <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.gotoSlide("next") }}>{">"}</button>
-                    </div>
-                }
-            </div >
+                    <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.gotoSlide("next") }}>{">"}</button>}
+            </div>
         );
     }
 }
