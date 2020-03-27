@@ -58,4 +58,10 @@ const loadedImgTable = ((el, callback, totalSlides, style = true) => {
     }
 })
 
-export {loadedImg, dinamicRef, loadedImgTable}
+const getStyleItemByProperty = (node, property) => {
+    const nodeStyle = window.getComputedStyle(node)
+    let styles = parseInt(nodeStyle.getPropertyValue(property));
+    return styles;
+}
+
+export {loadedImg, dinamicRef, loadedImgTable, getStyleItemByProperty}

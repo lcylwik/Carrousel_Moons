@@ -1,7 +1,7 @@
 import React, { createRef } from 'react';
 import style from './desktop.module.css'
 import Description from '../description/description';
-import { loadedImgTable, dinamicRef } from '../../utils';
+import { loadedImgTable, dinamicRef, getStyleItemByProperty } from '../../utils';
 
 class Desktop extends React.Component {
 
@@ -70,10 +70,8 @@ class Desktop extends React.Component {
         let node = allSlider[0].current;
         if (allSlider.length > 0 && node) {
             this.slideW = parseInt(node.offsetWidth);
-            let nodeStyle = window.getComputedStyle(node)
-            let patherStyle = window.getComputedStyle(node.parentNode)
-            this.slideMargin = parseInt(nodeStyle.getPropertyValue('margin-right'));
-            this.fatherPadding = parseInt(patherStyle.getPropertyValue('padding-left'));
+            this.slideMargin = getStyleItemByProperty(node,'margin-right');
+            this.fatherPadding = getStyleItemByProperty(node.parentNode,'padding-left');
         } else {
             this.slideW = 0;
         }

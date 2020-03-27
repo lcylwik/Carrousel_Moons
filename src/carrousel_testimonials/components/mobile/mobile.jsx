@@ -1,7 +1,7 @@
 import React, { createRef } from 'react';
 import style from './mobile.module.css';
 import Description from '../description/description';
-import { loadedImg, dinamicRef } from '../../utils';
+import { loadedImg, dinamicRef, getStyleItemByProperty } from '../../utils';
 
 class Mobile extends React.Component {
 
@@ -141,8 +141,7 @@ class Mobile extends React.Component {
         let node = allSlider[0].current;
         if (allSlider.length > 0 && node) {
             this.slideW = parseInt(node.offsetWidth);
-            let nodeStyle = window.getComputedStyle(node)
-            this.slideMargin = parseInt(nodeStyle.getPropertyValue('margin-right'));
+            this.slideMargin = getStyleItemByProperty(node,'margin-right');
         } else {
             this.slideW = 0;
         } 

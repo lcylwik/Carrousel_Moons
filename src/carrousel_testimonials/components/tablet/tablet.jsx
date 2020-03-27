@@ -1,7 +1,7 @@
 import React, { createRef } from 'react';
 import style from './tablet.module.css';
 import Description from '../description/description';
-import { loadedImgTable, dinamicRef } from '../../utils';
+import { loadedImgTable, dinamicRef, getStyleItemByProperty } from '../../utils';
 
 class Tablet extends React.Component {
 
@@ -77,8 +77,7 @@ class Tablet extends React.Component {
         let node = allSlider[0].current;
         if (allSlider.length > 0 && node) {
             this.slideW = parseInt(node.offsetWidth);
-            let nodeStyle = window.getComputedStyle(node.parentNode)
-            this.slideMargin = parseInt(nodeStyle.getPropertyValue('margin-right'));
+            this.slideMargin = getStyleItemByProperty(node.parentNode,'margin-right');
         } else {
             this.slideW = 0;
         } 
