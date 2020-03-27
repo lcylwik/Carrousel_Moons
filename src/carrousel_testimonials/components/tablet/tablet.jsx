@@ -61,7 +61,7 @@ class Tablet extends React.Component {
         this.refresImage()
         this.slideW = this.getSlideW();
 
-        this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
+        this.refSliderTable.current.style.left = `${- this.slideW * this.curSlide}px`;
     }
 
     refresImage = () => {
