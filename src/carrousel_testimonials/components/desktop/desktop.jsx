@@ -66,7 +66,6 @@ class Desktop extends React.Component {
     }
 
     getSlideW = () => {
-        debugger
         const allSlider = this.refSlides;
         let node = allSlider[0].current;
         if (allSlider.length > 0 && node) {
