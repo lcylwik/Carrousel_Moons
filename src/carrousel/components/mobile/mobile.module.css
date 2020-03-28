@@ -13,7 +13,6 @@
 
 .SliderMove {
     display: flex;
-    width: 260%;
 }
 
 .StepContainerImages {
@@ -63,14 +62,30 @@
     vertical-align: middle;
 }
 
-@media (min-width: 700px) {
-    .CarouselMovil {
-        display: none;
+.ImageSlider{
+    width: 270px;
+}
+
+@media (min-width: 370px) and (max-width: 471px) {
+    .ImageSlider{
+        width: 314px;
     }
 }
 
-@media (min-width: 633px) and (max-width: 700px) {
-    .StepContainerImages{
-        width: 30%;
+@media (min-width: 471px) and (max-width: 575px) {
+    .ImageSlider{
+        width: 380px;
+    }
+}
+
+@media (min-width: 575px) and (max-width: 700px) {
+    .ImageSlider{
+        width: 480px;
+    }
+}
+
+@media (min-width: 700px) {
+    .CarouselMovil {
+        display: none;
     }
 }

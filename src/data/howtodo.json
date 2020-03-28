@@ -1,0 +1,43 @@
+{
+    "data": [
+        {
+            "id": 0,
+            "header": "Así hacemos tus moons",
+            "title": "1. Diagnóstico en 3D",
+            "description": "En tu cita, hacemos un escaneo 3D para obtener un modelo digital idéntico a tus dientes.",
+            "image": "./assets/1/rectangle.jpg",
+            "image_2": "./assets/1/rectangle@2x.jpg"
+        },
+        {
+            "id": 1,
+            "header": "Así hacemos tus moons",
+            "title": "2. Diseño de sonrisa",
+            "description": "Con el modelo digital, tu Ortodoncista planea los movimientos de tus dientes,paso a paso, hasta lograr la sonrisa de tus sueños.",
+            "image": "./assets/2/rectangle.jpg",
+            "image_2": "./assets/2/rectangle@2x.jpg"
+        },
+        {
+            "id": 2,
+            "header": "3. Así hacemos tus moons",
+            "title": "Impresión 3D",
+            "description": "Cuando apruebas tu nueva sonrisa, creamos los moldes de tus moons con tecnología de impresión 3D.",
+            "image": "./assets/3/rectangle.jpg",
+            "image_2": "./assets/3/rectangle@2x.jpg"
+        },{
+            "id": 3,
+            "header": "Así hacemos tus moons",
+            "title": "4. Diagnóstico en 3D",
+            "description": "En tu cita, hacemos un escaneo 3D para obtener un modelo digital idéntico a tus dientes.",
+            "image": "./assets/1/rectangle.jpg",
+            "image_2": "./assets/1/rectangle@2x.jpg"
+        },
+        {
+            "id": 4,
+            "header": "Así hacemos tus moons",
+            "title": "5. Diseño de sonrisa",
+            "description": "Con el modelo digital, tu Ortodoncista planea los movimientos de tus dientes,paso a paso, hasta lograr la sonrisa de tus sueños.",
+            "image": "./assets/2/rectangle.jpg",
+            "image_2": "./assets/2/rectangle@2x.jpg"
+        }
+    ]
+}

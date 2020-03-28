@@ -8,7 +8,6 @@ class Mobile extends React.Component {
 
     constructor(props) {
         super(props);
-        this.info = this.props.info
 
         this.curLeft = 0
         this.moveX = 0
@@ -16,11 +15,10 @@ class Mobile extends React.Component {
         this.curSlide = 0
         this.loadedCnt = 0;
         this.slideW = 0;
-        this.totalSlides = this.info.length;
+        this.totalSlides = this.props.info.length;
 
         this.refSlider = createRef();
         this.refSliderContainer = createRef();
-        this.refImage = createRef();
         this.refAllSlide = dinamicRef(this.totalSlides);
         this.refDots = createRef();
 
@@ -52,7 +50,7 @@ class Mobile extends React.Component {
     }
 
     gotoSlide = (n) => {
-        if(n !== undefined) {
+        if (n !== undefined) {
             this.curSlide = n;
         }
         this.refSliderContainer.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
@@ -68,7 +66,7 @@ class Mobile extends React.Component {
     setDot = () => {
         let children = this.refDots.current.children;
         for (let i = 0; i < children.length; i++) {
-            if(i === this.curSlide) {
+            if (i === this.curSlide) {
                 children[i].classList.add(style.SliderActive);
                 children[i].classList.remove(style.SliderBotton);
             } else {
@@ -91,7 +89,6 @@ class Mobile extends React.Component {
         const touch = e.targetTouches[0] || e.changedTouches[0];
         this.moveX = touch.pageX;
 
-        // for scrolling up and down
         if (Math.abs(this.moveX - this.startX) < 40) return;
 
         this.refSliderContainer.current.style.left = `${this.curLeft + this.moveX - this.startX}px`
@@ -145,7 +142,7 @@ class Mobile extends React.Component {
         let allSlide = this.refAllSlide;
 
         for (let item of allSlide) {
-            loadedImg(item.current, this.updateSliderDimension, this.totalSlides);
+            loadedImg(item.current, this.updateSliderDimension, this.totalSlides, false);
         }
         this.refSliderContainer.current.style.left = `0px`
         this.setDot();
@@ -153,36 +150,33 @@ class Mobile extends React.Component {
     }
 
     render() {
+        const { info, hasLink } = this.props;
         return (
             <div className={style.CarouselMovil}>
                 <div ref={this.refSliderContainer} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideshowContainer}>
-                    <div>
-                        <div ref={this.refSlider} className={style.SliderMove} >
-                            {this.info.map((item, index) => {
-                                return (
-                                    <div key={index} className={style.StepContainerImages}>
-                                        <div ref={this.refAllSlide[index]} >
-                                            <img ref={this.refImage} alt="step-one" data-src={item.image_2} />
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                    <div ref={this.refSlider} className={style.SliderMove} >
+                        {info.map((item, index) => {
+                            return (
+                                <div key={index} ref={this.refAllSlide[index]} className={style.StepContainerImages}>
+                                    <img alt="step-one" data-src={item.image_2} className={style.ImageSlider}/>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
                 <div ref={this.refDots} className={style.SliderBootOut}>
-                    {this.info.map((item, index) => {
+                    {info.map((item, index) => {
                         return (<button key={index} onClick={(e) => { this.gotoSlide(index) }}>
                         </button>)
                     })}
                 </div>
 
-                {this.info.map((item, index) => {
-                    if (this.state.footerPosition === index) 
-                    return (<Description key={item.id} item={item}></Description>)
+                {info.map((item, index) => {
+                    if (this.state.footerPosition === index)
+                        return (<Description key={item.id} item={item}></Description>)
                     else return '';
                 })}
-                <LinkCita></LinkCita>
+                {hasLink && <LinkCita></LinkCita>}
             </div>
         );
     }
