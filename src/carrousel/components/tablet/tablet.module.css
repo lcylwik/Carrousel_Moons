@@ -1,6 +1,6 @@
 .CarouselTablet {
     display: none;
-    overflow-x: hidden;
+    overflow: hidden;
     margin-top: 0px;
 }
 
@@ -10,7 +10,6 @@
 
 .SliderMoveTablet {
     width: 150%;
-    transform: translateX(0%);
     display: flex;
 }
 
@@ -26,6 +25,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    height: 495px;
 }
 
 .OneImageTable {
@@ -50,13 +50,12 @@
 }
 
 .SliderBootOut {
-    position: static;
     align-self: center;
     bottom: 5px;
-    margin-top: 10px;
     z-index: 1;
     height: 20px;
     text-align: center;
+    margin-top: 5%;
 }
 
 .SliderBotton {
@@ -78,6 +77,47 @@
     .CarouselTablet {
         display: initial;
         overflow-x: hidden;
+    }
+}
+
+@media (min-width: 750px) {
+    .OneImageTable{
+        width: 330px;
+    }
+}
+
+@media (min-width: 800px) {
+    .OneImageTable{
+        width: 366px;
+    }
+}
+
+@media (min-width: 850px) {
+    .OneImageTable{
+        width: 385px;
+    }
+}
+
+@media (min-width: 928px) {
+    .OneImageTable{
+        width: 400px;
+    }
+}
+
+@media (min-width: 978px) {
+    .OneImageTable{
+        width: 430px;
+    }
+    .MoonsImageTwoTable {
+        height: 520px;
+    }
+}
+@media (min-width: 1024px) {
+    .OneImageTable{
+        width: 448px;
+    }
+    .MoonsImageTwoTable {
+        height: 530px;
     }
 }
 

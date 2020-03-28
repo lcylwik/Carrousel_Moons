@@ -8,7 +8,6 @@ class Tablet extends React.Component {
 
     constructor(props) {
         super(props);
-        this.info = this.props.info
 
         this.curLeft = 0
         this.moveX = 0
@@ -17,7 +16,7 @@ class Tablet extends React.Component {
         this.loadedCnt = 0;
         this.slideW = 0;
         this.offsetLeft = 0;
-        this.totalSlides = this.info.length;
+        this.totalSlides = this.props.info.length;
 
         this.refSlider = createRef();
         this.refSliderTable = createRef();
@@ -56,7 +55,7 @@ class Tablet extends React.Component {
         let allSlide = this.refAllSlide;
 
         for (let item of allSlide) {
-            loadedImg(item.current, this.updateSliderDimension, this.totalSlides);
+            loadedImg(item.current, this.updateSliderDimension, this.totalSlides, false);
         }
         this.refSliderTable.current.style.left = `0px`
         this.setDot();
@@ -161,12 +160,13 @@ class Tablet extends React.Component {
     }
 
     render() {
+        const { info, hasLink } = this.props
         return (
             <div className={style.CarouselTablet}>
                 <div ref={this.refSliderTable} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideshowContainerTable}>
                     <div>
                         <div ref={this.refSlider} className={style.SliderMoveTablet} >
-                            {this.info.map((item, index) => (
+                            {info.map((item, index) => (
                                 <div key={index} className={style.StepContainerImagesTable}>
                                     <div ref={this.refAllSlide[index]} className={style.MoonsImageTwoTable}>
                                         <img alt="step-one" className={style.OneImageTable} data-src={item.image_2} />
@@ -178,12 +178,12 @@ class Tablet extends React.Component {
                     </div>
                 </div>
                 <div ref={this.refDots} className={style.SliderBootOut}>
-                    {this.info.map((item, index) => {
+                    {info.map((item, index) => {
                         return (<button key={index} onClick={(e) => { this.gotoSlide(index) }}>
                         </button>)
                     })}
                 </div>
-                <LinkCita></LinkCita>
+                {hasLink && <LinkCita></LinkCita>}
             </div>
         );
     }
