@@ -33,9 +33,6 @@ class Tablet extends React.Component {
             autoHeight: false,
             afterChangeSlide: () => { }
         }
-        this.state = {
-            footerPosition: 0
-        }
     }
 
     componentWillMount() {
@@ -64,10 +61,9 @@ class Tablet extends React.Component {
 
     setDot = () => {
         let children = this.refDots.current.children;
+
         for (let i = 0; i < children.length; i++) {
-            if (i === 1) {
-                children[i].classList.add(style.SliderActive);
-            } else if(i === this.curSlide) {
+            if (i === this.curSlide || i - 1 === this.curSlide) {
                 children[i].classList.add(style.SliderActive);
                 children[i].classList.remove(style.SliderBotton);
             } else {
@@ -75,9 +71,10 @@ class Tablet extends React.Component {
                 children[i].classList.remove(style.SliderActive);
             }
         }
-        this.setState({
-            footerPosition: this.curSlide
-        });
+        if(this.curSlide === this.totalSlides - 1) {
+            children[this.curSlide - 1].classList.add(style.SliderActive);
+            children[this.curSlide - 1].classList.remove(style.SliderBotton);
+        }
     }
 
     updateSliderDimension = (e) => {
@@ -101,15 +98,15 @@ class Tablet extends React.Component {
     }
 
     gotoSlide = (n) => {
-        if (n === 1) return;
+        debugger
         if (n !== undefined) {
             this.curSlide = n;
         }
         this.refSliderTable.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
-        if (this.curSlide === 0) {
-            this.refSliderTable.current.style.left = `${-(this.curSlide) * this.slideW}px`
+        if (this.curSlide === this.totalSlides - 1) {
+            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * (this.slideW +  2 * this.offsetLeft)}px`
         } else {
-            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * this.slideW - 2 * this.offsetLeft}px`
+            this.refSliderTable.current.style.left = `${-this.curSlide * (this.slideW +  2 * this.offsetLeft)}px`
         }
 
         setTimeout(() => {
@@ -143,11 +140,11 @@ class Tablet extends React.Component {
         const dir = this.startX < this.moveX ? 'left' : 'right';
 
         if (!stayAtCur) {
-            dir === 'left' ? this.curSlide-=2 : this.curSlide+=2;
+            dir === 'left' ? this.curSlide -= 1 : this.curSlide += 1;
             if (this.curSlide < 0) {
                 this.curSlide = 0;
-            } else if (this.curSlide === this.totalSlides + 1) {
-                this.curSlide-=2;
+            } else if (this.curSlide === this.totalSlides - 1 || (this.curSlide === this.totalSlides)) {
+                this.curSlide -= 1;
             }
         }
         this.gotoSlide();
