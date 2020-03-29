@@ -62,6 +62,51 @@ class Desktop extends React.Component {
         }
     }
 
+    getCurrentLeft = () => {
+        const left = this.refSliderDesktop.current.style.left
+        if (left) this.curLeft = parseInt(left, 10);
+    }
+
+    startMove = (e) => {
+        this.getCurrentLeft();
+        const touch = e.targetTouches[0] || e.changedTouches[0];
+        this.startX = touch.pageX;
+    }
+
+    moving = (e) => {
+        const touch = e.targetTouches[0] || e.changedTouches[0];
+        this.moveX = touch.pageX;
+
+        if (Math.abs(this.moveX - this.startX) < 40) return;
+
+        this.refSliderDesktop.current.style.left = `${this.curLeft + 1 + this.moveX - this.startX}px`
+    }
+
+    endMove = (e) => {
+        this.getCurrentLeft();
+
+        if (Math.abs(this.moveX - this.startX) === 0 || (this.moveX === 0)) return;
+
+        const stayAtCur = Math.abs(this.moveX - this.startX) < 40 || this.moveX === 0 ? true : false;
+        const dir = this.startX < this.moveX ? 'left' : 'right';
+
+        if (!stayAtCur) {
+            dir === 'left' ? this.curSlide -= 1 : this.curSlide += 1;
+            if (this.curSlide < 0) {
+                this.curSlide = 0;
+            } else if (this.curSlide === this.totalSlides - 2) {
+                this.curSlide -= 1;
+            }
+        }
+        this.gotoSlide();
+        this.restValues();
+    }
+
+    restValues = () => {
+        this.startX = 0;
+        this.moveX = 0;
+    }
+
     getSlideW = () => {
         const allSlider = this.refSlides;
         let node = allSlider[0].current;
