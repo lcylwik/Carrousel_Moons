@@ -2,7 +2,7 @@ import React, {createRef} from 'react';
 import style from './desktop.module.css'
 import Description from '../description/description';
 import LinkCita from '../link/link';
-import { loadedImg, dinamicRef } from '../../utils';
+import { loadedImg, dinamicRef, getStyleItemByProperty } from '../../utils';
 
 class Desktop extends React.Component {
 
@@ -31,11 +31,60 @@ class Desktop extends React.Component {
             autoHeight: false,
         }
     }
+    componentWillMount() {
+        window.addEventListener('resize', this.updateSliderDimension);
+    }
+
+    componentWillUnmount() {
+        window.addEventListener('resize', this.updateSliderDimension);
+    }
 
     componentDidMount() {
-        for (let item of this.refSlides) {
-            loadedImg(item.current, () => { }, this.totalSlides, false);
+       this.init();
+       this.updateSliderDimension();
+    }
+
+    init = () => {
+        let allSlide = this.refSlides;
+
+        for (let item of allSlide) {
+            loadedImg(item.current, this.updateSliderDimension, this.totalSlides, false);
         }
+        this.getSlideW();
+    }
+
+    updateSliderDimension = (e) => {
+        this.refSliderDesktop.current.style.width = `${(450 + this.slideMargin) * this.totalSlides}px`;
+
+        this.getSlideW();
+        if (this.curSlide === 0) {
+            this.refSliderDesktop.current.style.left = `${-this.fatherPadding / 2}px`
+        }
+    }
+
+    getSlideW = () => {
+        const allSlider = this.refSlides;
+        let node = allSlider[0].current;
+        if (allSlider.length > 0 && node) {
+            this.slideW = parseInt(node.offsetWidth);
+            this.slideMargin = getStyleItemByProperty(node,'margin-right');
+            this.sliderPadding = getStyleItemByProperty(node,'padding-left');
+            this.fatherPadding = getStyleItemByProperty(node.parentNode,'padding-left');
+        } else {
+            this.slideW = 0;
+        }
+    }
+
+    gotoSlide = (n) => {
+        if (n === "prev" && this.curSlide !== 0) this.curSlide--;
+        if (n === "next" && this.curSlide !== this.totalSlides - 3) this.curSlide++
+
+        this.refSliderDesktop.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
+        this.refSliderDesktop.current.style.left = `${-this.curSlide * (this.slideW + this.slideMargin * 2) - this.fatherPadding / 2}px`
+
+        setTimeout(() => {
+            this.refSliderDesktop.current.style.transition = ''
+        }, this.def.transition.speed);
     }
 
     render() {
@@ -43,7 +92,7 @@ class Desktop extends React.Component {
         return (
             <div className={style.CarouselDesktop}>
                 {this.totalSlides > 3 && hasArrow &&
-                    <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { /*this.gotoSlide("prev")*/ }}>{"<"}</button>}
+                    <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.gotoSlide("prev")}}>{"<"}</button>}
                 <div ref={this.refSliderDesktop} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideShowContainerDesktop}>
                     {info.map((item, index) => {
                         return (
@@ -56,7 +105,7 @@ class Desktop extends React.Component {
                     })}
                 </div>
                 {this.totalSlides > 3 && hasArrow &&
-                    <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { /*this.gotoSlide("next")*/ }}>{">"}</button>}
+                    <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.gotoSlide("next")}}>{">"}</button>}
             </div>
         );
     }

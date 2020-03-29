@@ -35,4 +35,10 @@ const dinamicRef = (total) => {
     return refs
 }
 
-export {loadedImg, dinamicRef}
+const getStyleItemByProperty = (node, property) => {
+    const nodeStyle = window.getComputedStyle(node)
+    let styles = parseInt(nodeStyle.getPropertyValue(property));
+    return styles;
+}
+
+export {loadedImg, dinamicRef, getStyleItemByProperty}
