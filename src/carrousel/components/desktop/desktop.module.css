@@ -1,10 +1,15 @@
 .CarouselDesktop {
-    display: none;
+    display: flex;
+    height: 100%;
+    align-self: center;
+    margin: 0 80px;
+    width: 1074px;
+    padding-bottom: 5px;
     overflow: hidden;
 }
 
 .DesktopContainer{
-    overflow-x: hidden;
+    display: none;
 }
 
 .SlideShowContainerDesktop{
@@ -88,12 +93,9 @@
 }
 
 @media (min-width: 1040px) {
-    .CarouselDesktop {
+    .DesktopContainer{
+        overflow-x: hidden;
         display: flex;
-        height: 100%;
-        align-self: center;
-        margin: 0 80px;
-        width: 1074px;
-        padding-bottom: 5px;
+        flex-direction: column;
     }
 }
