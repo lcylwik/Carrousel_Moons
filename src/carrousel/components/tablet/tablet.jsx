@@ -8,7 +8,6 @@ class Tablet extends React.Component {
 
     constructor(props) {
         super(props);
-        this.info = this.props.info
 
         this.curLeft = 0
         this.moveX = 0
@@ -17,7 +16,7 @@ class Tablet extends React.Component {
         this.loadedCnt = 0;
         this.slideW = 0;
         this.offsetLeft = 0;
-        this.totalSlides = this.info.length;
+        this.totalSlides = this.props.info.length;
 
         this.refSlider = createRef();
         this.refSliderTable = createRef();
@@ -33,9 +32,6 @@ class Tablet extends React.Component {
             swipe: true,
             autoHeight: false,
             afterChangeSlide: () => { }
-        }
-        this.state = {
-            footerPosition: 0
         }
     }
 
@@ -56,7 +52,7 @@ class Tablet extends React.Component {
         let allSlide = this.refAllSlide;
 
         for (let item of allSlide) {
-            loadedImg(item.current, this.updateSliderDimension, this.totalSlides);
+            loadedImg(item.current, this.updateSliderDimension, this.totalSlides, false);
         }
         this.refSliderTable.current.style.left = `0px`
         this.setDot();
@@ -65,10 +61,9 @@ class Tablet extends React.Component {
 
     setDot = () => {
         let children = this.refDots.current.children;
+
         for (let i = 0; i < children.length; i++) {
-            if (i === 1) {
-                children[i].classList.add(style.SliderActive);
-            } else if(i === this.curSlide) {
+            if (i === this.curSlide || i - 1 === this.curSlide) {
                 children[i].classList.add(style.SliderActive);
                 children[i].classList.remove(style.SliderBotton);
             } else {
@@ -76,9 +71,10 @@ class Tablet extends React.Component {
                 children[i].classList.remove(style.SliderActive);
             }
         }
-        this.setState({
-            footerPosition: this.curSlide
-        });
+        if (this.curSlide === this.totalSlides - 1) {
+            children[this.curSlide - 1].classList.add(style.SliderActive);
+            children[this.curSlide - 1].classList.remove(style.SliderBotton);
+        }
     }
 
     updateSliderDimension = (e) => {
@@ -102,15 +98,14 @@ class Tablet extends React.Component {
     }
 
     gotoSlide = (n) => {
-        if (n === 1) return;
         if (n !== undefined) {
             this.curSlide = n;
         }
         this.refSliderTable.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
-        if (this.curSlide === 0) {
-            this.refSliderTable.current.style.left = `${-(this.curSlide) * this.slideW}px`
+        if (this.curSlide === this.totalSlides - 1) {
+            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * (this.slideW + 2 * this.offsetLeft)}px`
         } else {
-            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * this.slideW - 2 * this.offsetLeft}px`
+            this.refSliderTable.current.style.left = `${-this.curSlide * (this.slideW + 2 * this.offsetLeft)}px`
         }
 
         setTimeout(() => {
@@ -144,11 +139,11 @@ class Tablet extends React.Component {
         const dir = this.startX < this.moveX ? 'left' : 'right';
 
         if (!stayAtCur) {
-            dir === 'left' ? this.curSlide-=2 : this.curSlide+=2;
+            dir === 'left' ? this.curSlide -= 1 : this.curSlide += 1;
             if (this.curSlide < 0) {
                 this.curSlide = 0;
-            } else if (this.curSlide === this.totalSlides + 1) {
-                this.curSlide-=2;
+            } else if (this.curSlide === this.totalSlides - 1 || (this.curSlide === this.totalSlides)) {
+                this.curSlide -= 1;
             }
         }
         this.gotoSlide();
@@ -161,12 +156,13 @@ class Tablet extends React.Component {
     }
 
     render() {
+        const { info, hasLink } = this.props
         return (
             <div className={style.CarouselTablet}>
                 <div ref={this.refSliderTable} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideshowContainerTable}>
                     <div>
                         <div ref={this.refSlider} className={style.SliderMoveTablet} >
-                            {this.info.map((item, index) => (
+                            {info.map((item, index) => (
                                 <div key={index} className={style.StepContainerImagesTable}>
                                     <div ref={this.refAllSlide[index]} className={style.MoonsImageTwoTable}>
                                         <img alt="step-one" className={style.OneImageTable} data-src={item.image_2} />
@@ -178,12 +174,12 @@ class Tablet extends React.Component {
                     </div>
                 </div>
                 <div ref={this.refDots} className={style.SliderBootOut}>
-                    {this.info.map((item, index) => {
+                    {info.map((item, index) => {
                         return (<button key={index} onClick={(e) => { this.gotoSlide(index) }}>
                         </button>)
                     })}
                 </div>
-                <LinkCita></LinkCita>
+                {hasLink && <LinkCita></LinkCita>}
             </div>
         );
     }
