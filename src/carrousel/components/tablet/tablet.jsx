@@ -98,7 +98,6 @@ class Tablet extends React.Component {
     }
 
     gotoSlide = (n) => {
-        debugger
         if (n !== undefined) {
             this.curSlide = n;
         }

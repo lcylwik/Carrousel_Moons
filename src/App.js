@@ -8,9 +8,9 @@ import howtodo from './data/howtodo.json';
 function App() {
   return (
     <div className="App">
-      <CarrouselSteps info={steps.data} hasLink={true}></CarrouselSteps>
+      <CarrouselSteps info={steps.data} hasLink={true} hasArrow={false} hasDots={false}></CarrouselSteps>
       <CarrouselTestimonials></CarrouselTestimonials>
-      <CarrouselSteps info={howtodo.data} hasLink={false}></CarrouselSteps>
+      <CarrouselSteps info={howtodo.data} hasLink={false} hasArrow={true} hasDots={true}></CarrouselSteps>
     </div>
   );
 }
