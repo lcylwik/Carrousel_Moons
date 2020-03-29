@@ -3,6 +3,10 @@
     overflow: hidden;
 }
 
+.DesktopContainer{
+    overflow-x: hidden;
+}
+
 .SlideShowContainerDesktop{
     position: relative;
     display: flex;
@@ -12,7 +16,7 @@
 .PhotoDesktop{
     flex-direction: column;
     width: 300%;
-    height: 500px;
+    height: 450px;
     align-self: center;
     border-radius: 45px;
     float: left;
@@ -42,6 +46,45 @@
  
 .Next {
     margin-left: 1044px;
+}
+
+
+.SliderActive {
+    border: none;
+    width: 10px;
+    height: 10px;
+    background-color: #99bffc;
+    border-radius: 5px;
+    opacity: .5;
+    z-index: 100;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.SliderBootOut {
+    align-self: center;
+    bottom: 5px;
+    z-index: 1;
+    height: 20px;
+    text-align: center;
+}
+
+.SliderBotton {
+    border: none;
+    transition: opacity .25s;
+    width: 6px;
+    height: 6px;
+    background-color: #d8d8d8;
+    border-radius: 3px;
+    opacity: .5;
+    z-index: 100;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
+    overflow-x: hidden;
 }
 
 @media (min-width: 1040px) {

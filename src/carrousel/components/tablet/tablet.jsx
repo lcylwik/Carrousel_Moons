@@ -71,7 +71,7 @@ class Tablet extends React.Component {
                 children[i].classList.remove(style.SliderActive);
             }
         }
-        if(this.curSlide === this.totalSlides - 1) {
+        if (this.curSlide === this.totalSlides - 1) {
             children[this.curSlide - 1].classList.add(style.SliderActive);
             children[this.curSlide - 1].classList.remove(style.SliderBotton);
         }
@@ -103,9 +103,9 @@ class Tablet extends React.Component {
         }
         this.refSliderTable.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
         if (this.curSlide === this.totalSlides - 1) {
-            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * (this.slideW +  2 * this.offsetLeft)}px`
+            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * (this.slideW + 2 * this.offsetLeft)}px`
         } else {
-            this.refSliderTable.current.style.left = `${-this.curSlide * (this.slideW +  2 * this.offsetLeft)}px`
+            this.refSliderTable.current.style.left = `${-this.curSlide * (this.slideW + 2 * this.offsetLeft)}px`
         }
 
         setTimeout(() => {

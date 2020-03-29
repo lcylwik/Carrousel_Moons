@@ -4,7 +4,7 @@ import Desktop from './desktop/desktop';
 import Mobile from './mobile/mobile';
 import Tablet from './tablet/tablet';
 
-const CarrouselSteps = ( {info, hasLink, hasArrow}) => {
+const CarrouselSteps = ( {info, hasLink, hasArrow, hasDots}) => {
 
   const information = info;
   const textHeader = information[1].header;
@@ -14,9 +14,9 @@ const CarrouselSteps = ( {info, hasLink, hasArrow}) => {
       <div className={style.CarouselHeader}>
         <p className={style.HeaderTitle} dangerouslySetInnerHTML={createMarkup()}></p>
       </div>
-      <Mobile info={information}  hasLink={hasLink} hasArrow={hasArrow}/>
-      <Tablet info={information}  hasLink={hasLink} hasArrow={hasArrow}/>
-      <Desktop info={information} hasLink={hasLink} hasArrow={hasArrow}/>
+      <Mobile info={information}  hasLink={hasLink} hasArrow={hasArrow} hasDots={hasDots}/>
+      <Tablet info={information}  hasLink={hasLink} hasArrow={hasArrow} hasDots={hasDots}/>
+      <Desktop info={information} hasLink={hasLink} hasArrow={hasArrow} hasDots={hasDots}/>
     </div>
   );
 }
