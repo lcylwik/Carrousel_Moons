@@ -189,13 +189,13 @@ class Tablet extends React.Component {
                 {this.totalSlides > 2 && hasArrow &&
                         <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.arrowMove("next") }}>{">"}</button>}
                 </div>
+                {hasLink && <LinkCita></LinkCita>}
                 {this.totalSlides > 2 && hasDots && <div ref={this.refDots} className={style.SliderBootOut}>
                     {info.map((item, index) => {
                         return (<button key={index} onClick={(e) => { this.gotoSlide(index) }}>
                         </button>)
                     })}
                 </div>}
-                {hasLink && <LinkCita></LinkCita>}
             </div>
         );
     }

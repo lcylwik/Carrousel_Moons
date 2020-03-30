@@ -38,7 +38,6 @@
 .PhotoTablet{
     flex-direction: column;
     width: 300%;
-    /* height: 560px; */
     align-self: center;
     border-radius: 45px;
     float: left;
@@ -67,7 +66,6 @@
     z-index: 1;
     height: 20px;
     text-align: center;
-    margin-top: 5%;
 }
 
 .SliderBotton {
