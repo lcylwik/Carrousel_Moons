@@ -23,6 +23,7 @@ class Tablet extends React.Component {
         this.refImage = createRef();
         this.refAllSlide = dinamicRef(this.totalSlides);
         this.refDots = createRef();
+        this.refWrapper = createRef();
 
         this.def = {
             transition: {
@@ -54,7 +55,7 @@ class Tablet extends React.Component {
         for (let item of allSlide) {
             loadedImg(item.current, this.updateSliderDimension, this.totalSlides, false);
         }
-        this.refSliderTable.current.style.left = `0px`
+        //this.refSliderTable.current.style.left = `0px`
         this.setDot();
         this.getSlideW();
     }
@@ -81,7 +82,11 @@ class Tablet extends React.Component {
 
     updateSliderDimension = (e) => {
         this.slideW = this.getSlideW();
-        this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
+        //this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
+        this.refSlider.current.style.width = `${((window.innerWidth - 16 - 42*2)/2) * this.totalSlides}px`;
+        this.refWrapper.current.style.width = `${(window.innerWidth - 16 - 42*2)}px`;
+        
+        this.getSlideW();
     }
 
     getSlideW = () => {
@@ -95,7 +100,7 @@ class Tablet extends React.Component {
     }
 
     getCurrentLeft = () => {
-        const left = this.refSliderTable.current.style.left
+        const left = this.refSlider.current.style.left
         if (left) this.curLeft = parseInt(left, 10);
     }
 
@@ -103,15 +108,15 @@ class Tablet extends React.Component {
         if (n !== undefined) {
             this.curSlide = n;
         }
-        this.refSliderTable.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
+        this.refSlider.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
         if (this.curSlide === this.totalSlides - 1) {
-            this.refSliderTable.current.style.left = `${-(this.curSlide - 1) * (this.slideW + 2 * this.offsetLeft)}px`
+            this.refSlider.current.style.left = `${-(this.curSlide - 1) * (this.slideW + 2 * this.offsetLeft)}px`
         } else {
-            this.refSliderTable.current.style.left = `${-this.curSlide * (this.slideW + 2 * this.offsetLeft)}px`
+            this.refSlider.current.style.left = `${-this.curSlide * (this.slideW + 2 * this.offsetLeft)}px`
         }
 
         setTimeout(() => {
-            this.refSliderTable.current.style.transition = ''
+            this.refSlider.current.style.transition = ''
         }, this.def.transition.speed);
 
         this.setDot();
@@ -129,7 +134,7 @@ class Tablet extends React.Component {
 
         if (Math.abs(this.moveX - this.startX) < 40) return;
 
-        this.refSliderTable.current.style.left = `${this.curLeft + this.moveX - this.startX}px`
+        this.refSlider.current.style.left = `${this.curLeft + this.moveX - this.startX}px`
     }
 
     endMove = (e) => {
@@ -157,21 +162,32 @@ class Tablet extends React.Component {
         this.moveX = 0;
     }
 
+    arrowMove = (dir) => {
+        if (dir === "prev" && this.curSlide !== 0) this.curSlide--;
+        if (dir === "next" && this.curSlide !== this.totalSlides - 2) this.curSlide++
+
+        this.gotoSlide(this.curSlide);
+    }
+
     render() {
-        const { info, hasLink, hasDots } = this.props
+        const { info, hasLink, hasDots, hasArrow } = this.props
         return (
-            <div className={style.CarouselTablet}>
-                <div ref={this.refSliderTable} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideshowContainerTable}>
-                    <div ref={this.refSlider} className={style.SliderMoveTablet} >
-                        {info.map((item, index) => (
-                            <div key={index} className={style.StepContainerImagesTable}>
-                                <div ref={this.refAllSlide[index]} className={style.MoonsImageTwoTable}>
-                                    <img alt="step-one" className={style.OneImageTable} data-src={item.image_2} />
-                                    <Description key={index} item={item}></Description>
-                                </div>
+            <div className={style.TabletContainer}>
+                <div className={style.CarouselTablet}>
+                    {this.totalSlides > 2 && hasArrow &&
+                    <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.arrowMove("prev")}}>{"<"}</button>}
+                    <div ref={this.refWrapper} className={`${style.Wrapper}`}>
+                            <div ref={this.refSlider} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.Moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideshowContainerTable}>
+                                {info.map((item, index) => (
+                                    <div ref={this.refAllSlide[index]} key={index} className={style.PhotoTablet}>
+                                            <img alt="step-one" className={style.CarouselImage} data-src={item.image_2} />
+                                            <Description key={index} item={item}></Description>
+                                        </div>
+                                ))}
                             </div>
-                        ))}
                     </div>
+                {this.totalSlides > 2 && hasArrow &&
+                        <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.arrowMove("next") }}>{">"}</button>}
                 </div>
                 {this.totalSlides > 2 && hasDots && <div ref={this.refDots} className={style.SliderBootOut}>
                     {info.map((item, index) => {
