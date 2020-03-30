@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import style from './tablet.module.css';
 import Description from '../description/description';
 import LinkCita from '../link/link';
-import { loadedImg, dinamicRef } from '../../utils';
+import { loadedImg, dinamicRef, getStyleItemByProperty } from '../../utils';
 
 class Tablet extends React.Component {
 
@@ -16,6 +16,7 @@ class Tablet extends React.Component {
         this.loadedCnt = 0;
         this.slideW = 0;
         this.offsetLeft = 0;
+        this.slideMargin = 0;
         this.totalSlides = this.props.info.length;
 
         this.refSlider = createRef();
@@ -90,9 +91,12 @@ class Tablet extends React.Component {
 
     getSlideW = () => {
         const allSlider = this.refAllSlide;
+        let node = allSlider[0].current;
         if (allSlider.length > 0) {
-            this.slideW = parseInt(allSlider[0].current.offsetWidth);
-            this.offsetLeft = parseInt(allSlider[0].current.offsetLeft);
+            this.slideW = parseInt(node.offsetWidth);
+            this.offsetLeft = parseInt(node.offsetLeft);
+            this.slideMargin = getStyleItemByProperty(node,'margin-right');
+
         }
         else this.slideW = 0
     }
@@ -108,9 +112,9 @@ class Tablet extends React.Component {
         }
         this.refSlider.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
         if (this.curSlide === this.totalSlides - 1) {
-            this.refSlider.current.style.left = `${-(this.curSlide - 1) * (this.slideW + 2 * this.offsetLeft)}px`
+            this.refSlider.current.style.left = `${-(this.curSlide - 1) * (this.slideW + this.slideMargin)}px`
         } else {
-            this.refSlider.current.style.left = `${-this.curSlide * (this.slideW + 2 * this.offsetLeft)}px`
+            this.refSlider.current.style.left = `${-this.curSlide * (this.slideW + this.slideMargin)}px`
         }
 
         setTimeout(() => {

@@ -16,7 +16,6 @@ class Desktop extends React.Component {
         this.loadedCnt = 0;
         this.slideW = 0;
         this.slideMargin = 0;
-        this.fatherPadding = 0;
         this.totalSlides = this.props.info.length;
 
         this.refSliderDesktop = createRef();
@@ -118,8 +117,6 @@ class Desktop extends React.Component {
         if (allSlider.length > 0 && node) {
             this.slideW = parseInt(node.offsetWidth);
             this.slideMargin = getStyleItemByProperty(node, 'margin-right');
-            this.sliderPadding = getStyleItemByProperty(node, 'padding-left');
-            this.fatherPadding = getStyleItemByProperty(node.parentNode, 'padding-left');
         } else {
             this.slideW = 0;
         }
@@ -134,7 +131,7 @@ class Desktop extends React.Component {
 
     gotoSlide = (n) => {
         this.refSliderDesktop.current.style.transition = `left ${this.def.transition.speed / 1000}s ${this.def.transition.easing}`;
-        this.refSliderDesktop.current.style.left = `${-n * (this.slideW + this.slideMargin * 2) - this.fatherPadding / 2}px`
+        this.refSliderDesktop.current.style.left = `${-n * (this.slideW + this.slideMargin)}px`
 
         setTimeout(() => {
             this.refSliderDesktop.current.style.transition = ''
