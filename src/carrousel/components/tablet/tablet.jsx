@@ -81,7 +81,6 @@ class Tablet extends React.Component {
     }
 
     updateSliderDimension = (e) => {
-        this.slideW = this.getSlideW();
         //this.refSlider.current.style.left = `${- this.slideW * this.curSlide}px`;
         this.refSlider.current.style.width = `${((window.innerWidth - 16 - 42*2)/2) * this.totalSlides}px`;
         this.refWrapper.current.style.width = `${(window.innerWidth - 16 - 42*2)}px`;
@@ -96,7 +95,6 @@ class Tablet extends React.Component {
             this.offsetLeft = parseInt(allSlider[0].current.offsetLeft);
         }
         else this.slideW = 0
-        return this.slideW;
     }
 
     getCurrentLeft = () => {
