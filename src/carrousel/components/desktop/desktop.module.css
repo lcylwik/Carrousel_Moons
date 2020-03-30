@@ -22,13 +22,13 @@
 .PhotoDesktop{
     flex-direction: column;
     width: 300%;
-    height: 450px;
     align-self: center;
     border-radius: 45px;
     float: left;
     display: inline-flex;
     margin: 0 6px 8px 0px;
     padding: 0 10px;
+    align-self: flex-start;
 }
 
 .CarouselImage{
