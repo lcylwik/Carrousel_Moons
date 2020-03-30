@@ -22,6 +22,7 @@ class Desktop extends React.Component {
         this.refSliderDesktop = createRef();
         this.refSlides = dinamicRef(this.totalSlides);
         this.refDots = createRef();
+        this.refWrapper = createRef();
 
         this.def = {
             transition: {
@@ -56,12 +57,14 @@ class Desktop extends React.Component {
     }
 
     updateSliderDimension = (e) => {
-        this.refSliderDesktop.current.style.width = `${(450 + this.slideMargin) * this.totalSlides}px`;
-
-        this.getSlideW();
-        if (this.curSlide === 0) {
-            this.refSliderDesktop.current.style.left = `${-this.fatherPadding / 2}px`
+        if(window.innerWidth > 1100){
+            this.refSliderDesktop.current.style.width = `${(333) * this.totalSlides}px`;
+        } else {
+            this.refSliderDesktop.current.style.width = `${((window.innerWidth - 16 - 42*2)/3) * this.totalSlides}px`;
         }
+        this.refWrapper.current.style.width = `${(window.innerWidth - 16 - 42*2)}px`;
+        
+        this.getSlideW();
     }
 
     getCurrentLeft = () => {
@@ -191,6 +194,7 @@ class Desktop extends React.Component {
                 <div className={style.CarouselDesktop}>
                     {this.totalSlides > 3 && hasArrow &&
                         <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.arrowMove("prev")}}>{"<"}</button>}
+                    <div ref={this.refWrapper} className={`${style.Wrapper}`}>
                     <div ref={this.refSliderDesktop} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideShowContainerDesktop}>
                         {info.map((item, index) => {
                             return (
@@ -201,6 +205,7 @@ class Desktop extends React.Component {
                                 </div>
                             )
                         })}
+                    </div>
                     </div>
                     {this.totalSlides > 3 && hasArrow &&
                         <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.arrowMove("next") }}>{">"}</button>}

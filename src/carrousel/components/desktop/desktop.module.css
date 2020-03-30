@@ -3,9 +3,10 @@
     height: 100%;
     align-self: center;
     margin: 0 80px;
-    width: 1074px;
+    width: 100%;
     padding-bottom: 5px;
     overflow: hidden;
+    position: relative;
 }
 
 .DesktopContainer{
@@ -15,7 +16,7 @@
 .SlideShowContainerDesktop{
     position: relative;
     display: flex;
-    padding: 0 40px 0 40px;
+    left: 0;
 }
 
 .PhotoDesktop{
@@ -26,13 +27,14 @@
     border-radius: 45px;
     float: left;
     display: inline-flex;
-    margin: 0 16px 8px 16px;
+    margin: 0 6px 8px 0px;
     padding: 0 10px;
 }
 
 .CarouselImage{
     align-self: center;
     border-radius: 55px;
+    width: 100%;
     box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
 }
 
@@ -50,7 +52,11 @@
 }
  
 .Next {
-    margin-left: 1044px;
+    right: 0;
+}
+
+.Prev {
+    left: 0;
 }
 
 
@@ -91,11 +97,19 @@
     vertical-align: middle;
     overflow-x: hidden;
 }
+.Wrapper{
+    max-width: 990px;
+    overflow: hidden;
+    margin-left: 42px;
+}
 
 @media (min-width: 1040px) {
     .DesktopContainer{
         overflow-x: hidden;
         display: flex;
         flex-direction: column;
+        max-width: 1074px;
+        width: 100%;
+        align-self: center;
     }
 }
