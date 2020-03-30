@@ -157,7 +157,7 @@ class Desktop extends React.Component {
 
     setDot = (n) => {
         const { hasDots } = this.props;
-        if (!hasDots) return;
+        if (this.totalSlides <= 3 || !hasDots) return;
         let children = this.refDots.current.children;
         for (let i = 0; i < children.length; i++) {
             if (i === n || i - 1 === n || i - 2 === n) {
@@ -205,7 +205,7 @@ class Desktop extends React.Component {
                     {this.totalSlides > 3 && hasArrow &&
                         <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.arrowMove("next") }}>{">"}</button>}
                 </div>
-                {hasDots && <div ref={this.refDots} className={style.SliderBootOut}>
+                {this.totalSlides > 3 && hasDots && <div ref={this.refDots} className={style.SliderBootOut}>
                     {info.map((item, index) => {
                         return (<button key={index} onClick={(e) => { this.bottonsMove(index) }}>
                         </button>)
