@@ -57,13 +57,13 @@ class Desktop extends React.Component {
     }
 
     updateSliderDimension = (e) => {
-        if(window.innerWidth > 1100){
+        if (window.innerWidth > 1100) {
             this.refSliderDesktop.current.style.width = `${(333) * this.totalSlides}px`;
         } else {
-            this.refSliderDesktop.current.style.width = `${((window.innerWidth - 16 - 42*2)/3) * this.totalSlides}px`;
+            this.refSliderDesktop.current.style.width = `${((window.innerWidth - 16 - 42 * 2) / 3) * this.totalSlides}px`;
         }
-        this.refWrapper.current.style.width = `${(window.innerWidth - 16 - 42*2)}px`;
-        
+        this.refWrapper.current.style.width = `${(window.innerWidth - 16 - 42 * 2)}px`;
+
         this.getSlideW();
     }
 
@@ -166,25 +166,25 @@ class Desktop extends React.Component {
             if (i === n || i - 1 === n || i - 2 === n) {
                 this.activeButtons(children[i]);
             } else {
-               this.desactiveButtons(children[i]);
+                this.desactiveButtons(children[i]);
             }
         }
         if (n === this.totalSlides - 1) {
-            this.activeButtons(children[n-1]);
-            this.activeButtons(children[n-2]);
+            this.activeButtons(children[n - 1]);
+            this.activeButtons(children[n - 2]);
         } else if (n === this.totalSlides - 2) {
-            this.activeButtons(children[n-1]);
+            this.activeButtons(children[n - 1]);
         }
     }
 
     activeButtons = (element) => {
         element.classList.add(style.SliderActive);
-        element.classList.remove(style.SliderBotton);    
+        element.classList.remove(style.SliderBotton);
     }
 
     desactiveButtons = (element) => {
         element.classList.add(style.SliderBotton);
-        element.classList.remove(style.SliderActive);    
+        element.classList.remove(style.SliderActive);
     }
 
     render() {
@@ -193,19 +193,19 @@ class Desktop extends React.Component {
             <div className={style.DesktopContainer}>
                 <div className={style.CarouselDesktop}>
                     {this.totalSlides > 3 && hasArrow &&
-                        <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.arrowMove("prev")}}>{"<"}</button>}
+                        <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.arrowMove("prev") }}>{"<"}</button>}
                     <div ref={this.refWrapper} className={`${style.Wrapper}`}>
-                    <div ref={this.refSliderDesktop} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideShowContainerDesktop}>
-                        {info.map((item, index) => {
-                            return (
-                                <div ref={this.refSlides[index]} key={index} className={style.PhotoDesktop}>
-                                    <img data-src={item.image} alt={index} className={style.CarouselImage} />
-                                    <Description key={index} item={item}></Description>
-                                    {index === 0 && hasLink && <LinkCita></LinkCita>}
-                                </div>
-                            )
-                        })}
-                    </div>
+                        <div ref={this.refSliderDesktop} onTouchStart={(e) => this.startMove(e)} onTouchMove={(e) => this.moving(e)} onTouchEnd={(e) => this.endMove(e)} className={style.SlideShowContainerDesktop}>
+                            {info.map((item, index) => {
+                                return (
+                                    <div ref={this.refSlides[index]} key={index} className={style.PhotoDesktop}>
+                                        <img data-src={item.image} alt={index} className={style.CarouselImage} />
+                                        <Description key={index} item={item}></Description>
+                                        {index === 0 && hasLink && <LinkCita></LinkCita>}
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                     {this.totalSlides > 3 && hasArrow &&
                         <button className={`${style.Circle} ${style.Next}`} onClick={(e) => { this.arrowMove("next") }}>{">"}</button>}
@@ -215,7 +215,7 @@ class Desktop extends React.Component {
                         return (<button key={index} onClick={(e) => { this.bottonsMove(index) }}>
                         </button>)
                     })}
-                </div>}  
+                </div>}
             </div>
         );
     }
