@@ -18,7 +18,6 @@
 .StepContainerImages {
     align-self: center;
     justify-content: center;
-    display: flex;
     border-radius: 45px;
     padding-left: 2%;
 }
