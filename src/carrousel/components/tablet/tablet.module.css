@@ -33,7 +33,6 @@
     align-self: center;
     border-radius: 55px;
     width: 100%;
-    box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
 }
 .PhotoTablet{
     flex-direction: column;
