@@ -31,11 +31,14 @@
     align-self: flex-start;
 }
 
+.PhotoDesktopThree{
+    margin: 0 30px 8px 30px;
+}
+
 .CarouselImage{
     align-self: center;
     border-radius: 55px;
     width: 100%;
-    box-shadow: 5px 5px 15px 0 rgba(0,0,0,.2);
 }
 
 .Circle {

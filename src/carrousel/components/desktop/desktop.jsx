@@ -22,6 +22,7 @@ class Desktop extends React.Component {
         this.refSlides = dinamicRef(this.totalSlides);
         this.refDots = createRef();
         this.refWrapper = createRef();
+        this.refDesktopContainer = createRef();
 
         this.def = {
             transition: {
@@ -53,15 +54,22 @@ class Desktop extends React.Component {
         }
         this.getSlideW();
         this.setDot(this.curSlide);
+        if (this.totalSlides === 3) this.fixMarginWithSlider();
     }
 
     updateSliderDimension = (e) => {
-        if (window.innerWidth > 1100) {
-            this.refSliderDesktop.current.style.width = `${(333) * this.totalSlides}px`;
+        if(this.totalSlides === 3){
+            this.refDesktopContainer.current.style.maxWidth = `100%`;
+            this.refWrapper.current.style.maxWidth = `100%`;
         } else {
-            this.refSliderDesktop.current.style.width = `${((window.innerWidth - 16 - 42 * 2) / 3) * this.totalSlides}px`;
+            if (window.innerWidth > 1100) {
+                this.refSliderDesktop.current.style.width = `${(333) * this.totalSlides}px`;
+            } else {
+                this.refSliderDesktop.current.style.width = `${((window.innerWidth - 16 - 42 * 2) / 3) * this.totalSlides}px`;
+            }
+            this.refWrapper.current.style.width = `${(window.innerWidth - 16 - 42 * 2)}px`;
         }
-        this.refWrapper.current.style.width = `${(window.innerWidth - 16 - 42 * 2)}px`;
+        
 
         this.getSlideW();
     }
@@ -83,7 +91,9 @@ class Desktop extends React.Component {
 
         if (Math.abs(this.moveX - this.startX) < 40) return;
 
-        this.refSliderDesktop.current.style.left = `${this.curLeft + 1 + this.moveX - this.startX}px`
+        if(this.totalSlides > 3) {
+            this.refSliderDesktop.current.style.left = `${this.curLeft + 1 + this.moveX - this.startX}px`
+        }
     }
 
     endMove = (e) => {
@@ -104,6 +114,12 @@ class Desktop extends React.Component {
         }
         this.gotoSlide();
         this.restValues();
+    }
+
+    fixMarginWithSlider = () => {
+      this.refSlides.map((item) => {
+          item.current.classList.add(style.PhotoDesktopThree)
+      })
     }
 
     restValues = () => {
@@ -187,7 +203,7 @@ class Desktop extends React.Component {
     render() {
         const { info, hasLink, hasArrow, hasDots } = this.props;
         return (
-            <div className={style.DesktopContainer}>
+            <div ref={this.refDesktopContainer} className={style.DesktopContainer}>
                 <div className={style.CarouselDesktop}>
                     {this.totalSlides > 3 && hasArrow &&
                         <button className={`${style.Circle} ${style.Prev}`} onClick={(e) => { this.arrowMove("prev") }}>{"<"}</button>}
