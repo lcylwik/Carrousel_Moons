@@ -37,7 +37,7 @@
 }
 .PhotoTablet{
     flex-direction: column;
-    width: 300%;
+    width: 30%;
     align-self: center;
     border-radius: 45px;
     float: left;
