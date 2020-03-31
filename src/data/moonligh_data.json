@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "id": 0,
+            "header": "Una sonrisa increíble en 3 pasos",
+            "title": "Ven a tu cita y mira tus resultados",
+            "description": "Hacemos un escaneo 3D con el que tu Ortodoncista moons diseña tu nueva sonrisa. Antes de empezar, sabes cómo quedarás y en cuánto tiempo.",
+            "image": "./assets/1/rectangle.jpg",
+            "image_2": "./assets/1/rectangle@2x.jpg"
+        },
+        {
+            "id": 1,
+            "header": "Una sonrisa increíble en 3 pasos",
+            "title": "Cambia tus moons desde casa",
+            "description": "Recibe todos los moons para tu tratamiento en un solo kit. Cámbialos cada 2 semanas y obtén seguimiento remoto de tu Ortodoncista.",
+            "image": "./assets/2/rectangle.jpg",
+            "image_2": "./assets/2/rectangle@2x.jpg"
+        },
+        {
+            "id": 2,
+            "header": "Una sonrisa increíble en 3 pasos",
+            "title": "¡Sonríe a tu nueva vida!",
+            "description": "En sólo unos meses terminarás tu tratamiento de ortodoncia. ¡Disfruta tu nueva sonrisa más hermosa y alineada!",
+            "image": "./assets/3/rectangle.jpg",
+            "image_2": "./assets/3/rectangle@2x.jpg"
+        }
+    ]
+}

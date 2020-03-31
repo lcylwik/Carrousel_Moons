@@ -1,0 +1,25 @@
+.StepCarrouselBack {
+    align-self: center;
+}
+
+.SpanLinks {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -.5px;
+    color: #0752f8;
+    cursor: pointer;
+    font-family: ModernEra;
+}
+
+.ArrowRigth {
+    margin-left: 10px;
+    height: 10px;
+    width: 32px
+}
+
+@media (min-width: 700px) and (max-width: 1039px) {
+    .StepCarrouselBack {
+        margin-left: 20%;
+        align-self: initial;
+    }
+}
