@@ -1,0 +1,25 @@
+{
+    "data": [
+        {
+            "id": 0,
+            "title": "María Romero, 29 años",
+            "description": "Al principio no estaba convencida de que funcionaran, sonaba muy bueno para ser verdad.",
+            "image": "./assets/1/rectangle1.jpg",
+            "image_2": "./assets/1/rectangle2.jpg"
+        },
+        {
+            "id": 1,
+            "title": "Lianet Cylwik, 28 años",
+            "description": "Al principio no estaba convencida de que funcionaran, sonaba muy bueno para ser verdad.",
+            "image": "./assets/2/rectangle1.jpg",
+            "image_2": "./assets/2/rectangle2.jpg"
+        },
+        {
+            "id": 2,
+            "title": "María Romero, 29 años",
+            "description": "Al principio no estaba convencida de que funcionaran, sonaba muy bueno para ser verdad.",
+            "image": "./assets/3/rectangle1.jpg",
+            "image_2": "./assets/3/rectangle2.jpg"
+        }
+    ]
+}
