@@ -41,7 +41,7 @@ class Mobile extends React.Component {
     }
 
     componentWillUnmount() {
-        window.addEventListener('resize', this.updateSlider);
+        window.removeEventListener('resize', this.updateSlider);
     }
 
     componentDidMount() {

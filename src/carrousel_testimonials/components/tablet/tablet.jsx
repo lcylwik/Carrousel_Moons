@@ -37,7 +37,7 @@ class Tablet extends React.Component {
     }
 
     componentWillUnmount() {
-        window.addEventListener('resize', this.updateSliderDimension);
+        window.removeEventListener('resize', this.updateSliderDimension);
     }
 
     componentDidMount() {
