@@ -117,7 +117,7 @@ class Desktop extends React.Component {
     }
 
     fixMarginWithSlider = () => {
-      this.refSlides.foreach((item) => {
+      this.refSlides.forEach((item) => {
           item.current.classList.add(style.PhotoDesktopThree)
       })
     }
